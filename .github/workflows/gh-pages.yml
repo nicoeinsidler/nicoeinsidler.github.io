@@ -21,8 +21,14 @@ jobs:
           hugo-version: "latest"
           # extended: true
 
+      - name: Clean public directory
+        run: rm -rf public
+
       - name: Build
         run: hugo --minify
+
+      - name: Create cname file
+        run: echo 'ne555.io' > public/CNAME
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
