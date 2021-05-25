@@ -3,7 +3,6 @@ languageCode = "en-us"
 title = "Nico Einsidler."
 theme = "nicoeinsidler"
 sectionPagesMenu = "nav"
-publishDir = "docs"
 
 [params]
   author = "Nico Einsidler"
