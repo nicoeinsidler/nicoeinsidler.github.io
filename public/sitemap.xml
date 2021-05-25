@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ne555.github.io/about/</loc>
+    <loc>https://ne555.io/about/</loc>
     <lastmod>2021-04-24T00:27:31+02:00</lastmod>
   </url><url>
-    <loc>https://ne555.github.io/blog/</loc>
+    <loc>https://ne555.io/blog/</loc>
     <lastmod>2021-04-23T23:40:14+02:00</lastmod>
   </url><url>
-    <loc>https://ne555.github.io/blog/new-homepage/</loc>
+    <loc>https://ne555.io/blog/new-homepage/</loc>
     <lastmod>2021-04-23T23:40:14+02:00</lastmod>
   </url><url>
-    <loc>https://ne555.github.io/</loc>
+    <loc>https://ne555.io/</loc>
     <lastmod>2021-04-23T23:40:14+02:00</lastmod>
   </url><url>
-    <loc>https://ne555.github.io/categories/</loc>
+    <loc>https://ne555.io/categories/</loc>
   </url><url>
-    <loc>https://ne555.github.io/tags/</loc>
+    <loc>https://ne555.io/tags/</loc>
   </url>
 </urlset>

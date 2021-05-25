@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on Nico Einsidler.</title>
-    <link>https://ne555.github.io/blog/</link>
+    <link>https://ne555.io/blog/</link>
     <description>Recent content in Blog on Nico Einsidler.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 Apr 2021 23:40:14 +0200</lastBuildDate><atom:link href="https://ne555.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Apr 2021 23:40:14 +0200</lastBuildDate><atom:link href="https://ne555.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>First redesign of my homepage since 2012</title>
-      <link>https://ne555.github.io/blog/new-homepage/</link>
+      <link>https://ne555.io/blog/new-homepage/</link>
       <pubDate>Fri, 23 Apr 2021 23:40:14 +0200</pubDate>
       
-      <guid>https://ne555.github.io/blog/new-homepage/</guid>
+      <guid>https://ne555.io/blog/new-homepage/</guid>
       <description>It&amp;rsquo;s been almost 10 years since my last homepage redesign. Well, I&amp;rsquo;ve been very busy&amp;hellip; But it&amp;rsquo;s finally here now.
 For nostalgia&amp;rsquo;s sake, let&amp;rsquo;s look back on all the old revisions and designs.</description>
     </item>
