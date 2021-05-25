@@ -4,7 +4,7 @@ title = "Nico Einsidler."
 theme = "nicoeinsidler"
 sectionPagesMenu = "nav"
 pluralizeListTitles = "false"
-relativeURLs = "true"
+publishDir: "docs"
 
 [params]
   author = "Nico Einsidler"
