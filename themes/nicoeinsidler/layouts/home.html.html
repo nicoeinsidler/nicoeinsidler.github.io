@@ -1,0 +1,102 @@
+{{ define "main" }}
+
+<section id="about">
+    {{ with .Site.GetPage "about.md" }}
+    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    {{ .Summary }}
+
+    {{ end }}
+</section>
+<!-- <section id="blog">
+    <h2>Blog</h2>
+    <ul>
+        {{ range ( first 3 ( where .Site.RegularPages "Type" "blog" ).ByDate ) }}
+        <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+        {{ end }}
+    </ul>
+</section> -->
+<section id="projects">
+    <h2>Projects & Accomplishments</h2>
+    <table>
+        <tr>
+            <th>Timespan</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>2021-now</td>
+            <td><a href="https://www.credly.com/badges/b807d8ed-f9ee-4ae6-8003-65ae177d8948/public_url">IBM Quantum
+                    Ambassador</a></td>
+            <td>IBM Quantum Ambassador</td>
+            <td>You want to know more about Quantum Computing? Let's talk!</td>
+        </tr>
+        <tr>
+            <td>2020</td>
+            <td><a href="https://www.credly.com/badges/5dcebb0a-b04e-4dd6-8503-1974ad7fddd1/public_url">IBM Quantum
+                    Challenge 2020 Fall</a>
+            </td>
+            <td>Student</td>
+            <td>Finished the whole challenge and made it to the 114th place.</td>
+        </tr>
+        <tr>
+            <td>2020</td>
+            <td><a href="https://arxiv.org/abs/2005.13410">Experimental Test of Entropic Noise-Disturbance Uncertainty
+                    Relations for Three-Outcome Qubit
+                    Measurements</a></td>
+            <td>Researcher</td>
+            <td>Co-authored my first paper.</td>
+        </tr>
+        <tr>
+            <td>2020</td>
+            <td><a href="https://www.credly.com/badges/dfcee51c-a3c8-460b-b69c-6d79390221c8/public_url">Global Sales
+                    School</a></td>
+            <td>Seller</td>
+            <td>Graduated from Global Sales School, a 6 month long training for sellers.</td>
+        </tr>
+        <tr>
+            <td>2020-now</td>
+            <td><a href="https://www.ibm.com/at-de">IBM</a></td>
+            <td>Junior Technology Advocate</td>
+            <td>Started my Master@IBM program in Vienna.</td>
+        </tr>
+        <tr>
+            <td>2016-now</td>
+            <td><a href="https://www.youtube.com/viennasessions">Vienna Sessions</a></td>
+            <td>Videographer</td>
+            <td>Hobby YouTube project to give musicians a free digital stage.</td>
+        </tr>
+        <tr>
+            <td>2018-20</td>
+            <td><a href="https://www.facebook.com/AndereMeinungat-2054025264629824/">AndereMeinung.at</a></td>
+            <td>CTO</td>
+            <td>Connecting people with contrary opinions to counteract filter bubbles.</td>
+        </tr>
+        <tr>
+            <td>2017-19</td>
+            <td><a href="https://www.littlebig.art/">littlebig.art</a></td>
+            <td>CTO</td>
+            <td>Platform for artists and art lovers to crate unique and intimate art experiences.</td>
+        </tr>
+        <tr>
+            <td>2012-2017</td>
+            <td><a href="https://www.tuwien.at/en/">Bachelor in Physics</a></td>
+            <td>Student</td>
+            <td>Finished my bachelor in technical physics.</td>
+        </tr>
+        <tr>
+            <td>2014-16</td>
+            <td>UniPocket</td>
+            <td>CTO</td>
+            <td>App for students all around the world to share books, find the best lunch deals and much more.
+            </td>
+        </tr>
+        <tr>
+            <td>2013-14</td>
+            <td>WU Campus Menüs</td>
+            <td>Design & Development</td>
+            <td>App to find the best lunch deals around the new WU campus in Vienna.</td>
+        </tr>
+    </table>
+</section>
+{{ end }}

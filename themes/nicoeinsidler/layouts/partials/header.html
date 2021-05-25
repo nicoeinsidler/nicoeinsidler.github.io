@@ -1,0 +1,8 @@
+<header>
+    <h1 class="hi"><a href="/">{{ .Site.Title }}</a></h1>
+    {{ if .IsHome }}
+    <p>I love patterns, abstractions and structure.</p>
+    {{ else }}
+    {{ partial "nav.html" . }}
+    {{ end }}
+</header>

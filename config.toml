@@ -1,0 +1,12 @@
+baseURL = "https://ne555.github.io/"
+languageCode = "en-us"
+title = "Nico Einsidler."
+theme = "nicoeinsidler"
+sectionPagesMenu = "nav"
+pluralizeListTitles = "false"
+relativeURLs = "true"
+
+[params]
+  author = "Nico Einsidler"
+  description = "Nico Einsidler's personal homepage."
+  custom_css = ["css/style.css"]

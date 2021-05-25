@@ -1,0 +1,12 @@
+name = "nicoeinsidler"
+license = "MIT"
+licenselink = ""
+description = "Recreating an updated version of the style of my personal homepage from 2010."
+homepage = "http://ne555.io/"
+tags = []
+features = []
+min_version = "0.41.0"
+
+[author]
+  name = "Nico Einsidler"
+  homepage = "ne555.io"
