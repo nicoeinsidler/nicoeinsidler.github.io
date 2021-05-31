@@ -1,5 +1,7 @@
 :root {
 	--badge-height: calc(10vw*1.2 + 100px);
+	--gray: #bbb;
+	--light-gray: #eee;
 }
 
 
@@ -128,6 +130,19 @@ footer a[href^="https://www.instagram.com"] {background-image: url(/images/logo-
 footer a[href^="https://youtube.com/"] {background-image: url(/images/logo--youtube.svg);}
 footer a[href^="https://www.flickr.com/"] {background-image: url(/images/logo--flickr.svg);}
 
+#imprint {
+	font-size: 0.7em;
+	margin-top: 20px;
+}
+#imprint a {
+	color: var(--gray);
+	border: none;
+}
+#imprint a:hover {
+	color: black;
+	background: none;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                 Font Specs                                 */
 /* -------------------------------------------------------------------------- */
@@ -188,6 +203,12 @@ ul {
 ul li {
 	padding-left: 10px;
 	margin-bottom: 5px;
+}
+
+hr {
+	margin: 1em 0px;
+	border: none;
+	border-top: 1px solid var(--light-gray);
 }
 
 .badge {
