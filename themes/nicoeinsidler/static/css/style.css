@@ -205,6 +205,12 @@ ul li {
 	margin-bottom: 5px;
 }
 
+hr {
+	margin: 1em 0px;
+	border: none;
+	border-top: 1px solid var(--light-gray);
+}
+
 .badge {
 	background: #eee;
 	width: 100%;
