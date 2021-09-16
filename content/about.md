@@ -17,7 +17,7 @@ You can follow me on various networks here:
 
 <!--more-->
 
-{{< badge "images/ibm-quantum-associate-ambassador.png" "IBM Quantum Ambassador" "I'm now able to talk about IBM Quantum and give you an introduction into this topic. So if you want to know more about Quantum Computing, let's talk!" >}}
+
 
 More coming soon.
 
