@@ -7,15 +7,9 @@ menu:
         name: "Home"
 ---
 
-here from index
-
-Wieso sieht man den Content nicht?
-
-Kommt da nochwas?
-
 {{< details >}}
 {{< summary >}}
-Dies ist die Zusammenfassung.
+Hi, my name is Nico Einsidler. I work at the intersection of science, engineering and design to solve humanities biggest problems.
 {{< /summary >}}
-Hier noch mehr stuff
+I am pursuing my masters in technical physics at TU Wien, where I specialized in neutron and quantum physics. I got the chance to work in nuclear reactors in Grenoble & Vienna and co-authored a paper. While studying I worked as a freelance web designer and developer. Ober the years I co-founded three startups, WU Campus Menüs, UniPocket and Freilich Open Arts, which was later rebranded as littlebig.at. Since 2020 I am now crafting for IBM, where I work on the future of computing. I am helping clients run, maintain and automate on the worlds most efficient computing platform, IBM Z and preparing them for the next computing paradigm, quantum computing with IBM Quantum.
 {{< /details >}}
