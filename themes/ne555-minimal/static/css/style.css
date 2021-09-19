@@ -1,8 +1,19 @@
 :root {
-  --color-bg: #fff;
-  --color-txt: #000;
+  --color-bg: #0f0f0f;
+  --color-txt: #f2f2f2;
+  --color-accent: #008eff;
 
   --padding-main: 40px;
+}
+
+main.home .design summary {
+  --color-accent: #008eff;
+}
+main.home .engineering summary {
+  --color-accent: #008eff;
+}
+main.home .science summary {
+  --color-accent: #008eff;
 }
 
 * {
@@ -29,6 +40,16 @@ header {
   bottom: var(--padding-main);
 }
 
+summary {
+  cursor: pointer;
+}
+
+summary::after {
+  content: "↘";
+  position: relative;
+  top: 1%;
+}
+
 nav ul {
   list-style: none;
 }
@@ -45,16 +66,7 @@ nav li a {
 
 main.home {
   font-size: 4em;
-}
-
-main.home .design summary {
-  --color-accent: #f2e529;
-}
-main.home .engineering summary {
-  --color-accent: blue;
-}
-main.home .science summary {
-  --color-accent: red;
+  font-weight: 650;
 }
 
 main.home details {
@@ -64,7 +76,6 @@ main.home details {
 main.home summary {
   display: inline;
   color: var(--color-accent);
-  border-bottom: 5px dashed var(--color-accent);
 }
 
 main.home summary::-webkit-details-marker {
