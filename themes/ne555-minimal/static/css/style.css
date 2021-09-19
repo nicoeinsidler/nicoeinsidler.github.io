@@ -1,0 +1,72 @@
+:root {
+  --color-bg: #fff;
+  --color-txt: #000;
+
+  --padding-main: 40px;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+html {
+  /* font-family: "IBM Plex Sans", sans-serif; */
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  padding: var(--padding-main) var(--padding-main);
+  background-color: var(--color-bg);
+  color: var(--color-txt);
+}
+
+header {
+  position: fixed;
+  right: var(--padding-main);
+  bottom: var(--padding-main);
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+nav li a {
+  text-decoration: none;
+  color: var(--color-txt);
+}
+
+main.home {
+  font-size: 4em;
+}
+
+main.home .design summary {
+  --color-accent: #f2e529;
+}
+main.home .engineering summary {
+  --color-accent: blue;
+}
+main.home .science summary {
+  --color-accent: red;
+}
+
+main.home details {
+  display: inline;
+}
+
+main.home summary {
+  display: inline;
+  color: var(--color-accent);
+  border-bottom: 5px dashed var(--color-accent);
+}
+
+main.home summary::-webkit-details-marker {
+  display: none;
+}
