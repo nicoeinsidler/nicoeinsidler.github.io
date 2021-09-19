@@ -1,1 +1,1 @@
-<details>{{ .Inner }}</details>
+<details {{ with .Get "class" }} class="{{ . }}"{{ end }}>{{ .Inner }}</details>
