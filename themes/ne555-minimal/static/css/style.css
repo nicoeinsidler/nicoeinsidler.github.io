@@ -53,7 +53,7 @@ a:active {
   color: white;
 }
 a::after {
-  content: "\2197";
+  content: "↗";
 }
 a[href^="https://ne555.io/"]::after
 {
@@ -70,8 +70,6 @@ summary::after {
   /* content: "↘"; */
   content: "\2198 \2196 \2197 \2199  	\21D6  	\21F1  	\279A  	\279F \2927";
   /* content: "\21B4"; => doesn't use Inter in Firefox?!*/
-  position: relative;
-  top: 1%;
 }
 
 nav ul {
@@ -105,4 +103,3 @@ main.home summary {
 main.home summary::-webkit-details-marker {
   display: none;
 }
-+
