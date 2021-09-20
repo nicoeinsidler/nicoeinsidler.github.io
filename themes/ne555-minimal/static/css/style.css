@@ -86,6 +86,7 @@ nav li a {
 main.home {
   font-size: 4em;
   font-weight: 550;
+  font-feature-settings: "calt", "frac", "case";
 }
 
 main.home details {
