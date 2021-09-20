@@ -24,6 +24,7 @@ main.home .science summary {
 html {
   /* font-family: "IBM Plex Sans", sans-serif; */
   font-family: "Inter", sans-serif;
+  font-feature-settings: "calt", "frac", "case", "ss02", "ss03", "zero";
   font-size: 14px;
   text-rendering: optimizeLegibility;
 }
@@ -40,12 +41,35 @@ header {
   bottom: var(--padding-main);
 }
 
+a,
+a:visited {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  color: white;
+}
+a::after {
+  content: "\2197";
+}
+a[href^="https://ne555.io/"]::after
+{
+  content: none;
+}
+
 summary {
   cursor: pointer;
+  outline: none;
 }
 
 summary::after {
-  content: "↘";
+  font-family: "Inter", sans-serif !important;
+  /* content: "↘"; */
+  content: "\2198 \2196 \2197 \2199  	\21D6  	\21F1  	\279A  	\279F \2927";
+  /* content: "\21B4"; => doesn't use Inter in Firefox?!*/
   position: relative;
   top: 1%;
 }
@@ -81,3 +105,4 @@ main.home summary {
 main.home summary::-webkit-details-marker {
   display: none;
 }
++
