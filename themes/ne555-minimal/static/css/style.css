@@ -23,7 +23,7 @@ main.home .science summary {
 
 html {
   /* font-family: "IBM Plex Sans", sans-serif; */
-  font-family: "Inter", sans-serif;
+  font-family: "Inter var", sans-serif;
   font-feature-settings: "calt", "frac", "case", "ss02", "ss03", "zero";
   font-size: 14px;
   text-rendering: optimizeLegibility;
@@ -66,10 +66,7 @@ summary {
 }
 
 summary::after {
-  font-family: "Inter", sans-serif !important;
-  /* content: "↘"; */
-  content: "\2198 \2196 \2197 \2199  	\21D6  	\21F1  	\279A  	\279F \2927";
-  /* content: "\21B4"; => doesn't use Inter in Firefox?!*/
+  content: "↘";
 }
 
 nav ul {
@@ -88,7 +85,7 @@ nav li a {
 
 main.home {
   font-size: 4em;
-  font-weight: 650;
+  font-weight: 550;
 }
 
 main.home details {
