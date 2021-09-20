@@ -9,5 +9,4 @@ Over the years I co-founded {{< details >}}{{< summary >}}three startups{{< /sum
 {{< /p >}}{{< /details >}}
 and {{< details class="design" >}}{{< summary >}}design{{< /summary >}}{{< p >}}
 While studying I worked as a freelance web designer and developer
-{{< /p >}}{{< /details >}}.
-<!-- to solve humanities biggest problems. -->
+{{< /p >}}{{< /details >}} to help solve humanities biggest problems.
