@@ -1,7 +1,9 @@
 :root {
   --color-bg: #0f0f0f;
   --color-txt: #f2f2f2;
-  --color-accent: #008eff;
+  --color-accent-base: #008eff;
+  --color-accent-light: #0cbfe8;
+  --color-accent-3: #0d12ff;
 
   --padding-main: 40px;
 }
@@ -42,7 +44,7 @@ header {
 
 a,
 a:visited {
-  color: var(--color-accent);
+  color: var(--color-accent-base);
   text-decoration: none;
 }
 a:hover {
@@ -94,11 +96,24 @@ main.home details {
 
 main.home summary {
   display: inline;
-  color: var(--color-accent);
+  color: var(--color-accent-base);
+  background-image: linear-gradient(
+    45deg,
+    var(--color-accent-base),
+    var(--color-accent-light)
+  );
+
+  background-size: cover;
+  background-repeat: repeat;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
 }
 main.home details[open] > summary {
   color: var(--color-bg);
-  background-color: var(--color-accent);
+  background-color: var(--color-accent-base);
 }
 main.home details[open] > summary::after {
   content: "↘";
