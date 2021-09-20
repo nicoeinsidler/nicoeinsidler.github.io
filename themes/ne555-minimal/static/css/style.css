@@ -22,7 +22,6 @@ main.home .science summary {
 }
 
 html {
-  /* font-family: "IBM Plex Sans", sans-serif; */
   font-family: "Inter var", sans-serif;
   font-feature-settings: "calt", "frac", "case", "ss02", "ss03", "zero";
   font-size: 14px;
@@ -66,7 +65,7 @@ summary {
 }
 
 summary::after {
-  content: "↘";
+  content: "+";
 }
 
 nav ul {
@@ -97,7 +96,18 @@ main.home summary {
   display: inline;
   color: var(--color-accent);
 }
+main.home details[open] > summary {
+  color: red;
+}
+main.home details[open] > summary::after {
+  content: "↘";
+}
 
 main.home summary::-webkit-details-marker {
   display: none;
+}
+
+main.home details[open] summary + p {
+  position: absolute;
+  left: var(--padding-main);
 }
