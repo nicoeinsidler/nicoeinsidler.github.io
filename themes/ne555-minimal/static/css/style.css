@@ -65,7 +65,7 @@ summary {
 }
 
 summary::after {
-  content: "+";
+  content: "→";
 }
 
 nav ul {
