@@ -2,6 +2,9 @@
 title: "Nico Einsidler"
 date: 2021-04-24T00:27:31+02:00
 draft: false
+menu:
+    nav:
+        name: "Home"
 ---
 
 Hi, my name is Nico Einsidler. I work at the intersection of{{< details class="science" >}}{{< summary >}}science{{< /summary >}}{{< p >}}I am pursuing my masters in technical physics at TU Wien, where I specialized in neutron and quantum physics. I got the chance to work in nuclear reactors in Grenoble & Vienna and {{< a href="https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.023175" >}}co-authored a paper{{< /a >}}.{{< /p >}}{{< /details >}}, {{< details class="engineering" >}}{{< summary >}}engineering{{< /summary >}}{{< p >}}

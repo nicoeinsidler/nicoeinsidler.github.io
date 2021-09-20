@@ -1,0 +1,6 @@
+{{ define "main" }}
+<main aria-role="main" {{ if .IsHome }} class="home" {{ end }}>
+	<h2>{{ .Title }}</h2>
+	{{ .Content }}
+</main>
+{{ end }}

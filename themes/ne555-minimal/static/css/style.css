@@ -26,12 +26,11 @@ main.home .science summary {
 html {
   font-family: "Inter var", sans-serif;
   font-feature-settings: "calt", "frac", "case", "ss02", "ss03", "zero";
-  font-size: 14px;
+  font-size: 12pt;
   text-rendering: optimizeLegibility;
 }
 
 body {
-  padding: var(--padding-main) var(--padding-main);
   background-color: var(--color-bg);
   color: var(--color-txt);
 }
@@ -86,7 +85,7 @@ nav li a {
 
 main.home {
   font-size: 4em;
-  font-weight: 550;
+  font-weight: 580;
   font-feature-settings: "calt", "frac", "case";
 }
 
@@ -97,28 +96,46 @@ main.home details {
 main.home summary {
   display: inline;
   color: var(--color-accent-base);
-  background-image: linear-gradient(
+
+  /* background-image: linear-gradient(
     45deg,
     var(--color-accent-base),
     var(--color-accent-light)
   );
-
   background-size: cover;
   background-repeat: repeat;
-
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
+  -moz-text-fill-color: transparent; */
 }
 main.home details[open] > summary {
-  color: var(--color-bg);
-  background-color: var(--color-accent-base);
+  color: var(--color-accent-light);
 }
 main.home details[open] > summary::after {
   content: "↘";
 }
-
 main.home summary::-webkit-details-marker {
   display: none;
+}
+
+main {
+  padding: var(--padding-main) var(--padding-main);
+  min-height: 100vh;
+}
+
+footer {
+  padding: var(--padding-main) var(--padding-main);
+  background-color: var(--color-accent-base);
+  color: var(--color-txt);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+footer a {
+  color: var(--color-txt) !important;
+}
+
+footer ul {
+  list-style: none;
 }
