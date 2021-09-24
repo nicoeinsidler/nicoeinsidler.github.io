@@ -101,6 +101,9 @@ a:active {
 a::after {
   content: "↗";
 }
+a[href^="#"]::after {
+  content: "→";
+}
 a[href^="https://ne555.io/"]::after
 {
   content: none;
