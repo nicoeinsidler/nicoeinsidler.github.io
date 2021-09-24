@@ -99,6 +99,34 @@ main {
   padding-bottom: var(--padding-main);
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                 Navigation                                 */
+/* -------------------------------------------------------------------------- */
+
+header {
+  background-color: var(--color-accent-base);
+  position: sticky;
+  bottom: 0px;
+  left:0px;
+  padding-top: 30px;
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-left: 0px !important;
+}
+nav li {
+  font-size: var(--font-size-nav);
+}
+nav li a {
+  color: white !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                Media Queries                               */
+/* -------------------------------------------------------------------------- */
 
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) {
@@ -114,6 +142,24 @@ main {
       ". main main ."
       "footer footer footer footer";
   }
+  header {
+    background-color: unset;
+    position: unset;
+    padding-top: 0px;
+  }
+  nav ul {
+    list-style: none;
+    padding-left: 0px;
+    display: block;
+  }
+  nav li {
+    display: inline-block;
+    font-size: var(--font-size-nav);
+  }
+  nav li a {
+    text-decoration: none;
+    color: var(--color-accent-base) !important;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -124,6 +170,10 @@ main {
       ". nav nav ."
       ". main main ."
       "footer footer footer footer";
+  }
+  nav {
+    position: sticky;
+    top: var(--padding-main);
   }
 }
 
@@ -144,46 +194,12 @@ main {
     grid-template-areas:
       ". . . . . ."
       ". . main nav . ."
-      "footer footer footer footer . .";
+      "footer footer footer footer footer footer";
   }
 }
 
 
 
-/* -------------------------------------------------------------------------- */
-/*                                 Navigation                                 */
-/* -------------------------------------------------------------------------- */
-
-header {
-  background-color: var(--color-accent-base);
-  position: sticky;
-  bottom: 0px;
-  left:0px;
-  padding-top: 30px;
-}
-nav ul {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  padding-left: 0px !important;
-}
-nav li a {
-  color: white !important;
-}
-
-/* nav ul {
-  list-style: none;
-  padding-left: 0px;
-}
-nav li {
-  display: inline-block;
-  font-size: var(--font-size-nav);
-}
-nav li a {
-  text-decoration: none;
-  color: var(--color-txt);
-} */
 
 /* -------------------------------------------------------------------------- */
 /*                               Basic Elements                               */
