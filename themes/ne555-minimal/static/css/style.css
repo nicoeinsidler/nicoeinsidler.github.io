@@ -10,8 +10,8 @@
   --txt-letter-spacing: -0.017em;
 
   --h1-font-size: 80px;
-  --h1-font-weight: 800;
-  --h1-line-height: 112px;
+  --h1-font-weight: 540;
+  --h1-line-height: 100px;
   --h1-letter-spacing: -0.022em;
   
   --h2-font-size: 40px;
@@ -51,7 +51,6 @@
     --txt-font-weight-bold: 700;
   }
 }
-
 
 
 /* -------------------------------------------------------------------------- */
@@ -128,6 +127,33 @@ nav li a::after {
   content: none;
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*                                   Footer                                   */
+/* -------------------------------------------------------------------------- */
+
+footer ul li::before, nav ul li::before {
+  content: none;
+  margin-right: 0px;
+}
+footer {
+  color: var(--color-txt-alt);
+  padding: var(--padding-main) var(--padding-main);
+  background-color: var(--color-gray);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "social social boring boring";
+  font-size: var(--font-size-footer);
+}
+footer a {color: var(--color-txt-alt) !important;}
+footer ul {
+  list-style: none;
+  padding-left: 0px;
+}
+#social {grid-area: social;}
+#boring-links {grid-area: boring;}
+
 /* -------------------------------------------------------------------------- */
 /*                                Media Queries                               */
 /* -------------------------------------------------------------------------- */
@@ -202,7 +228,6 @@ nav li a::after {
     display: block;
     font-size: 20px;
     margin-right: 0px;
-    margin-bottom: 5px;
   }
 }
 
@@ -215,10 +240,13 @@ nav li a::after {
       ". . main nav . ."
       "footer footer footer footer footer footer";
   }
+  footer {
+    padding-left: 0px;
+    padding-right: 0px;
+    grid-template-columns: var(--padding-main) 1fr 544px 544px 10fr var(--padding-main);
+    grid-template-areas: ". . social boring . .";
+  }
 }
-
-
-
 
 /* -------------------------------------------------------------------------- */
 /*                               Basic Elements                               */
@@ -281,6 +309,9 @@ img {
 ol,ul {
   margin-bottom: 25px;
 }
+ol li, ul li {
+  margin-bottom: 5px;
+}
 ol {
   list-style: decimal-leading-zero;
   padding-left: 70px;
@@ -298,27 +329,6 @@ ul li::before {
 
 
 
-/* -------------------------------------------------------------------------- */
-/*                                   Footer                                   */
-/* -------------------------------------------------------------------------- */
-
-footer ul li::before, nav ul li::before {
-  content: none;
-  margin-right: 0px;
-}
-footer {
-  color: var(--color-txt-alt);
-  padding: var(--padding-main) var(--padding-main);
-  background-color: var(--color-gray);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  font-size: var(--font-size-footer);
-}
-footer a {color: var(--color-txt-alt) !important;}
-footer ul {
-  list-style: none;
-  padding-left: 0px;
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                    Home                                    */
