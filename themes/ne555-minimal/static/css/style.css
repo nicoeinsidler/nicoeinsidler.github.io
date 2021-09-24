@@ -9,7 +9,7 @@
   --color-accent-light: #0cbfe8;
   --color-accent-3: #0d12ff;
 
-  --padding-main: 50px;
+  --padding-main: 55px;
 
   --font-size-txt: 1.5em;
   --font-size-h1: 6em;
@@ -47,10 +47,11 @@ body {
   color: var(--color-txt);
   display: grid;
   grid-template-columns: var(--padding-main) 3fr 1fr var(--padding-main);
-  grid-template-rows: var(--padding-main) auto auto;
+  grid-template-rows: var(--padding-main) auto auto auto;
   grid-template-areas:
     ". . . ."
-    ". main nav ."
+    ". nav nav ."
+    ". main main ."
     "footer footer footer footer";
 }
 
@@ -139,16 +140,14 @@ ul li::before {
 /* -------------------------------------------------------------------------- */
 
 header {
-  position: fixed;
-  right: var(--padding-main);
-  bottom: var(--padding-main);
+
 }
 nav ul {
   list-style: none;
+  padding-left: 0px;
 }
 nav li {
   display: inline-block;
-  margin-left: 10px;
   font-size: var(--font-size-nav);
 }
 nav li a {
