@@ -3,24 +3,56 @@
 /* -------------------------------------------------------------------------- */
 
 :root { /* This is the style sheet for the dark theme, bright theme has to follow */
-  --color-bg: #0f0f0f;
-  --color-txt: #f2f2f2;
-  --color-accent-base: #008eff;
-  --color-accent-light: #0cbfe8;
-  --color-accent-3: #0d12ff;
-
   --padding-main: 55px;
 
-  --font-size-txt: 1.5em;
-  --font-size-h1: 6em;
-  --font-size-h2: 3em;
+  --txt-font-size: 20px;
+  --txt-line-height: 28px;
+  --txt-letter-spacing: -0.017em;
+
+  --h1-font-size: 80px;
+  --h1-font-weight: 800;
+  --h1-line-height: 112px;
+  --h1-letter-spacing: -0.022em;
+  
+  --h2-font-size: 40px;
+  --h2-font-weight: 700;
+  --h2-line-height: 56px;
+  --h2-letter-spacing: -0.022em;
+
   --font-size-nav: 1em;
-  --font-size-footer: 1em;
-  --font-weight-txt: 300;
-  --font-weight-txt-bold: 700;
-  --font-weight-h1: 800;
-  --font-weight-h2: 800;
 }
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #ffffff;
+    --color-txt: #131313;
+    --color-txt-alt: #9b9b9b;
+    --color-accent-base: #008eff;
+    --color-accent-light: #0cbfe8;
+    --color-accent-3: #0d12ff;
+    --color-gray: #000000;
+
+    --txt-font-weight: 400;
+    --txt-font-weight-bold: 750;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f0f0f;
+    --color-txt: #f2f2f2;
+    --color-txt-alt: #9b9b9b;
+    --color-accent-base: #008eff;
+    --color-accent-light: #0cbfe8;
+    --color-accent-3: #0d12ff;
+    --color-gray: rgb(31, 31, 31);
+
+    --txt-font-weight: 350;
+    --txt-font-weight-bold: 700;
+  }
+}
+
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    Reset                                   */
@@ -38,7 +70,10 @@
 html {
   font-family: "Inter var", sans-serif;
   font-feature-settings: "calt", "frac", "case", "ss02", "ss03", "zero";
-  font-size: 12pt;
+  font-size: var(--font-size-txt);
+  font-weight: var(--font-weight-txt);
+  line-height: var(--line-height-txt);
+  letter-spacing: var(--letter-spacing-txt);
   text-rendering: optimizeLegibility;
 }
 
@@ -50,8 +85,8 @@ body {
   grid-template-rows: var(--padding-main) auto auto auto;
   grid-template-areas:
     ". . . ."
-    ". nav nav ."
     ". main main ."
+    "nav nav nav nav"
     "footer footer footer footer";
 }
 
@@ -64,28 +99,115 @@ main {
   padding-bottom: var(--padding-main);
 }
 
+
+/* Extra small devices (phones, 600px and down) */
+/* @media only screen and (max-width: 600px) {
+
+} */
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  body {
+    grid-template-areas:
+      ". . . ."
+      ". nav nav ."
+      ". main main ."
+      "footer footer footer footer";
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  body {
+    grid-template-areas:
+      ". . . ."
+      ". nav nav ."
+      ". main main ."
+      "footer footer footer footer";
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  body {
+    grid-template-areas:
+      ". . . ."
+      ". main nav ."
+      "footer footer footer footer";
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  body {
+    grid-template-columns: var(--padding-main) 1fr 816px 272px 10fr var(--padding-main);
+    grid-template-areas:
+      ". . . . . ."
+      ". . main nav . ."
+      "footer footer footer footer . .";
+  }
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                                 Navigation                                 */
+/* -------------------------------------------------------------------------- */
+
+header {
+  background-color: var(--color-accent-base);
+  position: sticky;
+  bottom: 0px;
+  left:0px;
+  padding-top: 30px;
+}
+nav ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding-left: 0px !important;
+}
+nav li a {
+  color: white !important;
+}
+
+/* nav ul {
+  list-style: none;
+  padding-left: 0px;
+}
+nav li {
+  display: inline-block;
+  font-size: var(--font-size-nav);
+}
+nav li a {
+  text-decoration: none;
+  color: var(--color-txt);
+} */
+
+/* -------------------------------------------------------------------------- */
+/*                               Basic Elements                               */
+/* -------------------------------------------------------------------------- */
+
 h1 {
-  font-weight: 800;
-  font-size: var(--font-size-h1);
-  margin-bottom:40px;
-  letter-spacing: -0.022em;
-  line-height: 112px;
+  font-weight: var(--h1-font-weight);
+  font-size: var(--h1-font-size);
+  line-height: var(--h1-line-height);
+  letter-spacing: var(--h1-letter-spacing);
+  margin-bottom: 40px;
 }
 
 h2 {
-  font-weight: 800;
-  font-size: var(--font-size-h2);
-  letter-spacing: -0.022em;
-  line-height: 56px;
+  font-weight: var(--h2-font-weight);
+  font-size: var(--h2-font-size);
+  letter-spacing: var(--h2-letter-spacing);
+  line-height: var(--h2-line-height);
   margin-bottom: 30px;
   margin-top: 50px;
 }
 
 p {
   margin-bottom: 20px;
-  font-size: 18px;
-  letter-spacing: -0.014em;
-  line-height: 25px;
 }
 a,
 a:visited {
@@ -113,8 +235,8 @@ strong {
 }
 
 li, p {
-  font-size: var(--font-size-txt);
-  font-weight: var(--font-weight-txt);
+  font-size: var(--txt-font-size);
+  font-weight: var(--txt-font-weight);
 }
 
 img {
@@ -139,25 +261,7 @@ ul li::before {
   top: 2px;
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                 Navigation                                 */
-/* -------------------------------------------------------------------------- */
 
-header {
-
-}
-nav ul {
-  list-style: none;
-  padding-left: 0px;
-}
-nav li {
-  display: inline-block;
-  font-size: var(--font-size-nav);
-}
-nav li a {
-  text-decoration: none;
-  color: var(--color-txt);
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                   Footer                                   */
@@ -168,16 +272,14 @@ footer ul li::before, nav ul li::before {
   margin-right: 0px;
 }
 footer {
+  color: var(--color-txt-alt);
   padding: var(--padding-main) var(--padding-main);
-  background-color: var(--color-accent-base);
-  color: var(--color-txt);
+  background-color: var(--color-gray);
   display: grid;
   grid-template-columns: 1fr 1fr;
   font-size: var(--font-size-footer);
 }
-footer a {
-  color: var(--color-txt) !important;
-}
+footer a {color: var(--color-txt-alt) !important;}
 footer ul {
   list-style: none;
   padding-left: 0px;
@@ -200,11 +302,12 @@ summary::after {
 }
 
 main.home p {
-  font-size: 4em;
+  font-size: calc(var(--h1-font-size) - 10px);
+  letter-spacing: var(--h1-letter-spacing);
+  line-height: calc(var(--h1-line-height) - 20px);
   font-weight: 580;
   font-feature-settings: "calt", "frac", "case";
-  letter-spacing: -0.022em;
-  line-height: 80px;
+  margin-bottom: 40px;
 }
 
 main.home .active::after {
@@ -217,6 +320,6 @@ main.home .active::after {
 /* -------------------------------------------------------------------------- */
 
 main.list h2 {
-  font-size: 3em;
-  font-weight: 800;
+  /* font-size: 3em;
+  font-weight: 800; */
 }
