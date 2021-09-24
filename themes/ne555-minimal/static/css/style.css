@@ -1,27 +1,39 @@
-:root {
+/* -------------------------------------------------------------------------- */
+/*                               Var Definitions                              */
+/* -------------------------------------------------------------------------- */
+
+:root { /* This is the style sheet for the dark theme, bright theme has to follow */
   --color-bg: #0f0f0f;
   --color-txt: #f2f2f2;
   --color-accent-base: #008eff;
   --color-accent-light: #0cbfe8;
   --color-accent-3: #0d12ff;
 
-  --padding-main: 40px;
+  --padding-main: 50px;
+
+  --font-size-txt: 1.5em;
+  --font-size-h1: 6em;
+  --font-size-h2: 3em;
+  --font-size-nav: 1em;
+  --font-size-footer: 1em;
+  --font-weight-txt: 300;
+  --font-weight-txt-bold: 700;
+  --font-weight-h1: 800;
+  --font-weight-h2: 800;
 }
 
-main.home .design summary {
-  --color-accent: #008eff;
-}
-main.home .engineering summary {
-  --color-accent: #008eff;
-}
-main.home .science summary {
-  --color-accent: #008eff;
-}
+/* -------------------------------------------------------------------------- */
+/*                                    Reset                                   */
+/* -------------------------------------------------------------------------- */
 
 * {
   padding: 0px;
   margin: 0px;
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                 Basic Setup                                */
+/* -------------------------------------------------------------------------- */
 
 html {
   font-family: "Inter var", sans-serif;
@@ -35,12 +47,34 @@ body {
   color: var(--color-txt);
 }
 
-header {
-  position: fixed;
-  right: var(--padding-main);
-  bottom: var(--padding-main);
+main {
+  padding: var(--padding-main) var(--padding-main);
+  min-height: 100vh;
 }
 
+h1 {
+  font-weight: 800;
+  font-size: var(--font-size-h1);
+  margin-bottom:40px;
+  letter-spacing: -0.022em;
+  line-height: 112px;
+}
+
+h2 {
+  font-weight: 800;
+  font-size: var(--font-size-h2);
+  letter-spacing: -0.022em;
+  line-height: 56px;
+  margin-bottom: 30px;
+  margin-top: 50px;
+}
+
+p {
+  margin-bottom: 20px;
+  font-size: 18px;
+  letter-spacing: -0.014em;
+  line-height: 25px;
+}
 a,
 a:visited {
   color: var(--color-accent-base);
@@ -59,35 +93,110 @@ a[href^="https://ne555.io/"]::after
 {
   content: none;
 }
-
-summary {
-  cursor: pointer;
-  outline: none;
+strong {
+  font-weight: var(--font-weight-txt-bold);
 }
 
-summary::after {
-  content: "→";
+li, p {
+  font-size: var(--font-size-txt);
+  font-weight: var(--font-weight-txt);
 }
 
+img {
+  max-width: 100%;
+}
+
+ol,ul {
+  margin-bottom: 25px;
+}
+ol {
+  list-style: decimal-leading-zero;
+  padding-left: 70px;
+}
+ul {
+  padding-left: 49px;
+  list-style: none;
+}
+ul li::before {
+  content: "–";
+  margin-right: 9px;
+  position: relative;
+  top: 2px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 Navigation                                 */
+/* -------------------------------------------------------------------------- */
+
+header {
+  position: fixed;
+  right: var(--padding-main);
+  bottom: var(--padding-main);
+}
 nav ul {
   list-style: none;
 }
-
 nav li {
   display: inline-block;
   margin-left: 10px;
+  font-size: var(--font-size-nav);
 }
-
 nav li a {
   text-decoration: none;
   color: var(--color-txt);
 }
 
+/* -------------------------------------------------------------------------- */
+/*                                   Footer                                   */
+/* -------------------------------------------------------------------------- */
+
+footer ul li::before, nav ul li::before {
+  content: none;
+  margin-right: 0px;
+}
+footer {
+  padding: var(--padding-main) var(--padding-main);
+  background-color: var(--color-accent-base);
+  color: var(--color-txt);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: var(--font-size-footer);
+}
+footer a {
+  color: var(--color-txt) !important;
+}
+footer ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                    Home                                    */
+/* -------------------------------------------------------------------------- */
+
+main.home .design summary {
+  --color-accent: #008eff;
+}
+main.home .engineering summary {
+  --color-accent: #008eff;
+}
+main.home .science summary {
+  --color-accent: #008eff;
+}
+summary {
+  cursor: pointer;
+  outline: none;
+}
+summary::after {
+  content: "→";
+}
 main.home {
   font-size: 4em;
   font-weight: 580;
   font-feature-settings: "calt", "frac", "case";
+  letter-spacing: -0.022em;
 }
+main.home p {font-size: 1em; font-weight: 580;margin-bottom: 0;}
 
 main.home details {
   display: inline;
@@ -119,23 +228,11 @@ main.home summary::-webkit-details-marker {
   display: none;
 }
 
-main {
-  padding: var(--padding-main) var(--padding-main);
-  min-height: 100vh;
-}
+/* -------------------------------------------------------------------------- */
+/*                                List Template                               */
+/* -------------------------------------------------------------------------- */
 
-footer {
-  padding: var(--padding-main) var(--padding-main);
-  background-color: var(--color-accent-base);
-  color: var(--color-txt);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-footer a {
-  color: var(--color-txt) !important;
-}
-
-footer ul {
-  list-style: none;
+main.list h2 {
+  font-size: 3em;
+  font-weight: 800;
 }
