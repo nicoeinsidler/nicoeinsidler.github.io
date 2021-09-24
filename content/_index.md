@@ -4,7 +4,7 @@ date: 2021-04-24T00:27:31+02:00
 draft: false
 menu:
     nav:
-        name: "Home"
+        name: "NE555"
 js: js/toggle.js
 ---
 
