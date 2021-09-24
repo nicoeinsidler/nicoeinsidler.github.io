@@ -207,6 +207,10 @@ main.home p {
   line-height: 80px;
 }
 
+main.home .active::after {
+  content: "↘";
+}
+
 
 /* -------------------------------------------------------------------------- */
 /*                                List Template                               */
