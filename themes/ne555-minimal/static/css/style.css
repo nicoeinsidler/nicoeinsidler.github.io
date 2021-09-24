@@ -174,15 +174,10 @@ footer ul {
 /*                                    Home                                    */
 /* -------------------------------------------------------------------------- */
 
-main.home .design summary {
+main.home summary {
   --color-accent: #008eff;
 }
-main.home .engineering summary {
-  --color-accent: #008eff;
-}
-main.home .science summary {
-  --color-accent: #008eff;
-}
+
 summary {
   cursor: pointer;
   outline: none;
