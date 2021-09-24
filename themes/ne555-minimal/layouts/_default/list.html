@@ -1,14 +1,14 @@
 {{ define "main" }}
 {{ range (where .Site.RegularPages "Type" "in" (slice "notes")).GroupByDate "2006" }}
-<main role="main">
+<main role="main" class="list">
     <h2>{{ .Key }}</h2>
-    <ul>
+    <ol>
         {{ range .Pages }}
         <li>
             <a href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
         </li>
         {{ end }}
-    </ul>
+    </ol>
 </main>
 {{ end }}
 {{ end }}

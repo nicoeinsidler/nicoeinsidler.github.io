@@ -1,6 +1,6 @@
 {{ define "main" }}
-<main aria-role="main" {{ if .IsHome }} class="home" {{ end }}>
-	<h2>{{ .Title }}</h2>
+<main aria-role="main" {{ if .IsHome }} class="home" {{ else }} class="single" {{ end }}>
+	<h1>{{ .Title }}</h1>
 	{{ .Content }}
 </main>
 {{ end }}
