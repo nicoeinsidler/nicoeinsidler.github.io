@@ -10,7 +10,7 @@ js: js/toggle.js
 
 Hi, my name is Nico Einsidler. I work at the intersection of [science](#science), [engineering](#engineering) and [design](#design) to help solve humanities biggest problems.
 
-{{< pAnchor id="science">}}I am pursuing my masters in technical physics at TU Wien, where I specialized in neutron and quantum physics. I got the chance to work in nuclear reactors in Grenoble & Vienna and [co-authored a paper](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.023175).{{< /pAnchor >}}
+{{< pAnchor id="science">}}I am pursuing my masters in technical physics at [TU Wien](https://www.tuwien.at/), where I specialized in neutron and quantum physics. I got the chance to work with amazing people at nuclear reactors in Grenoble & Vienna and [co-authored a paper](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.023175) with them.{{< /pAnchor >}}
 
 {{< pAnchor id="design">}} While studying I worked as a freelance web designer and developer.{{< /pAnchor >}}
 
