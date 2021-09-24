@@ -45,10 +45,20 @@ html {
 body {
   background-color: var(--color-bg);
   color: var(--color-txt);
+  display: grid;
+  grid-template-columns: var(--padding-main) 3fr 1fr var(--padding-main);
+  grid-template-rows: var(--padding-main) auto auto;
+  grid-template-areas:
+    ". . . ."
+    ". main nav ."
+    "footer footer footer footer";
 }
 
+main {grid-area: main;}
+footer {grid-area: footer;}
+header {grid-area: nav;}
+
 main {
-  padding: var(--padding-main) var(--padding-main);
   min-height: 100vh;
 }
 
