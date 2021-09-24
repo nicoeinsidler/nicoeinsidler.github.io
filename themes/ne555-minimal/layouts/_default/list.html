@@ -1,14 +1,14 @@
 {{ define "main" }}
-{{ range (where .Site.RegularPages "Type" "in" (slice "notes")).GroupByDate "2006" }}
 <main role="main" class="list">
-    <h2>{{ .Key }}</h2>
-    <ol>
-        {{ range .Pages }}
+    <h1>{{ .Title }}</h1>
+    <ul>
+        <!-- ranges through content in ascending order according to the "title" field set in front matter -->
+        {{ range .Pages.ByTitle }}
         <li>
-            <a href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+            <time>{{ .Date.Format "Monday, Jan 2, 2006" }}</time>
         </li>
         {{ end }}
-    </ol>
+    </ul>
 </main>
-{{ end }}
 {{ end }}
