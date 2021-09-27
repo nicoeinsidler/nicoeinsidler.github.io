@@ -2,11 +2,11 @@
 <main role="main" class="list">
     <h1>{{ .Title }}</h1>
     <ul>
-        <!-- ranges through content in ascending order according to the "title" field set in front matter -->
         {{ range .Pages.ByTitle }}
         <li>
             <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-            <time>{{ .Date.Format "Monday, Jan 2, 2006" }}</time>
+            <p><time>{{ .Page.Params.start }}</time>{{ if .Page.Params.end }} – <time>{{ .Page.Params.end }}</time>{{ end }}</p>
+            <p>{{ .Summary }}</p>
         </li>
         {{ end }}
     </ul>
