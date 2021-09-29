@@ -430,3 +430,18 @@ main.list h2 {
   /* font-size: 3em;
   font-weight: 800; */
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                   Single                                   */
+/* -------------------------------------------------------------------------- */
+
+.short h1 {
+  font-size: var(--txt-font-size);
+}
+.short p {
+  font-size: calc(var(--h1-font-size) - 10px);
+  letter-spacing: var(--h1-letter-spacing);
+  line-height: calc(var(--h1-line-height) - 20px);
+  font-weight: 580;
+  font-feature-settings: "calt", "frac", "case";
+}

@@ -1,5 +1,5 @@
 {{ define "main" }}
-<main aria-role="main" {{ if .IsHome }} class="home" {{ else }} class="single" {{ end }}>
+<main aria-role="main" {{ if .IsHome }} class="home" {{ else if .Page.Params.shortNote }} class="single short" {{ else }} class="single" {{ end }}>
 	<h1>{{ .Title }}</h1>
 	{{ .Content }}
 </main>
