@@ -3,7 +3,7 @@ title: "Vienna Sessions"
 date: 2021-09-24T18:27:04+02:00
 draft: false
 start: 2016
-summary: Dies ist ein Test.
+summary: Hobby YouTube project to give musicians a free digital stage.
 ---
 
 Expedita voluptatum ratione quas. Molestiae porro alias unde omnis illo ea. Enim aut expedita molestiae ea aut aut.
