@@ -327,7 +327,11 @@ h2 {
   margin-bottom: 30px;
   margin-top: 50px;
 }
-
+hr {
+  border: none;
+  border-top: 1px solid var(--color-txt);
+  margin: 20px 0px;
+}
 p {
   margin-bottom: 20px;
 }
