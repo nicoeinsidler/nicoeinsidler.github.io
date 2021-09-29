@@ -2,7 +2,8 @@
 /*                               Var Definitions                              */
 /* -------------------------------------------------------------------------- */
 
-:root { /* This is the style sheet for the dark theme, bright theme has to follow */
+:root {
+  /* This is the style sheet for the dark theme, bright theme has to follow */
   --padding-main: 55px;
 
   --txt-font-size: 20px;
@@ -12,7 +13,7 @@
   --h1-font-size: 80px;
   --h1-line-height: 100px;
   --h1-letter-spacing: -0.022em;
-  
+
   --h2-font-size: 40px;
   --h2-line-height: 56px;
   --h2-letter-spacing: -0.022em;
@@ -54,7 +55,6 @@
   }
 }
 
-
 /* -------------------------------------------------------------------------- */
 /*                                    Reset                                   */
 /* -------------------------------------------------------------------------- */
@@ -91,9 +91,15 @@ body {
     "footer footer footer footer";
 }
 
-main {grid-area: main;}
-footer {grid-area: footer;}
-header {grid-area: nav;}
+main {
+  grid-area: main;
+}
+footer {
+  grid-area: footer;
+}
+header {
+  grid-area: nav;
+}
 
 main {
   min-height: 100vh;
@@ -108,7 +114,7 @@ header {
   background-color: var(--color-accent-base);
   position: sticky;
   bottom: 0px;
-  left:0px;
+  left: 0px;
   padding-top: 30px;
 }
 nav ul {
@@ -129,12 +135,12 @@ nav li a::after {
   content: none;
 }
 
-
 /* -------------------------------------------------------------------------- */
 /*                                   Footer                                   */
 /* -------------------------------------------------------------------------- */
 
-footer ul li::before, nav ul li::before {
+footer ul li::before,
+nav ul li::before {
   content: none;
   margin-right: 0px;
 }
@@ -148,13 +154,57 @@ footer {
   grid-template-areas: "social social boring boring";
   font-size: var(--font-size-footer);
 }
-footer a {color: var(--color-txt-alt) !important;}
+footer a {
+  color: var(--color-txt-alt) !important;
+}
 footer ul {
   list-style: none;
   padding-left: 0px;
 }
-#social {grid-area: social;}
-#boring-links {grid-area: boring;}
+#social {
+  grid-area: social;
+}
+#boring-links {
+  grid-area: boring;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Projects                                  */
+/* -------------------------------------------------------------------------- */
+
+.list ul {
+  padding-left: 0px;
+}
+.list ul li {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "heading heading"
+    "timespan desc";
+  border-bottom: 1px solid var(--color-txt);
+  padding: 20px 0px;
+}
+.list ul li h2 {
+  grid-area: heading;
+}
+.list ul li p:first-child {
+  grid-area: timespan;
+}
+.list ul li p:nth-child(3) {
+  grid-area: desc;
+}
+.list ul li:first-child {
+  border-top: 1px solid var(--color-txt);
+}
+.list ul li::before {
+  content: none;
+}
+.list h2 {
+  font-size: var(--txt-font-size);
+  font-weight: var(--txt-font-weight);
+  margin: 0px 0px;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                Media Queries                               */
@@ -212,6 +262,9 @@ footer ul {
     position: sticky;
     top: var(--padding-main);
   }
+  .list ul li {
+    grid-template-columns: 1fr 3fr;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -236,7 +289,9 @@ footer ul {
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   body {
-    grid-template-columns: var(--padding-main) 1fr 816px 272px 10fr var(--padding-main);
+    grid-template-columns: var(--padding-main) 1fr 816px 272px 10fr var(
+        --padding-main
+      );
     grid-template-areas:
       ". . . . . ."
       ". . main nav . ."
@@ -245,7 +300,9 @@ footer ul {
   footer {
     padding-left: 0px;
     padding-right: 0px;
-    grid-template-columns: var(--padding-main) 1fr 544px 544px 10fr var(--padding-main);
+    grid-template-columns: var(--padding-main) 1fr 544px 544px 10fr var(
+        --padding-main
+      );
     grid-template-areas: ". . social boring . .";
   }
 }
@@ -299,7 +356,8 @@ strong {
   font-weight: var(--font-weight-txt-bold);
 }
 
-li, p {
+li,
+p {
   font-size: var(--txt-font-size);
   font-weight: var(--txt-font-weight);
 }
@@ -308,10 +366,12 @@ img {
   max-width: 100%;
 }
 
-ol,ul {
+ol,
+ul {
   margin-bottom: 25px;
 }
-ol li, ul li {
+ol li,
+ul li {
   margin-bottom: 5px;
 }
 ol {
@@ -328,9 +388,6 @@ ul li::before {
   position: relative;
   top: 2px;
 }
-
-
-
 
 /* -------------------------------------------------------------------------- */
 /*                                    Home                                    */
@@ -360,7 +417,6 @@ main.home p {
 main.home .active::after {
   content: "↘";
 }
-
 
 /* -------------------------------------------------------------------------- */
 /*                                List Template                               */
