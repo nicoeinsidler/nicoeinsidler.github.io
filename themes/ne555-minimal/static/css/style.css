@@ -6,9 +6,9 @@
   /* This is the style sheet for the dark theme, bright theme has to follow */
   --padding-main: 55px;
 
-  --txt-font-size: 20px;
-  --txt-line-height: 28px;
-  --txt-letter-spacing: -0.017em;
+  --txt-font-size: 24px;
+  --txt-line-height: 34px;
+  --txt-letter-spacing: -0.019em;
 
   --h1-font-size: 80px;
   --h1-line-height: 100px;
