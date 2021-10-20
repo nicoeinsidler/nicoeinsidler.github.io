@@ -9,7 +9,7 @@ end: 2014
 
 When the new [WU Wien](https://www.wu.ac.at/) campus was opened, students had a simple problem: Where are the best lunch menu deals on campus?
 
-Marco Hans, Maximilian Schöberl, Alexander Hofbauer and I (and some more folks) set out to help student decide what to eat. We built an iOS and Android app and a website featuring all lunch menu deals from the surrounding restaurants.
+Marco Hans, Maximilian Schöberl, Alexander Hofbauer and I (and some more folks) set out to help students decide what to eat. We built an iOS and Android app and a website featuring all lunch menu deals from the surrounding restaurants.
 
 ![WU Campus Menü logo, the first wireframe sketches of the website and the app](/img/wu-campus-menüs/wu-campus-menus-setches.png)
 
