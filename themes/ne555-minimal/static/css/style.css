@@ -32,7 +32,7 @@
     --color-gray: #000000;
 
     --txt-font-weight: 400;
-    --txt-font-weight-bold: 750;
+    --txt-font-weight-bold: 720;
     --h1-font-weight: 520;
     --h2-font-weight: 650;
   }
@@ -356,9 +356,6 @@ a[href^="https://ne555.io/"]::after
 {
   content: none;
 }
-strong {
-  font-weight: var(--font-weight-txt-bold);
-}
 
 li,
 p {
@@ -391,6 +388,10 @@ ul li::before {
   margin-right: 9px;
   position: relative;
   top: 2px;
+}
+
+strong {
+  font-weight: var(--txt-font-weight-bold);
 }
 
 /* -------------------------------------------------------------------------- */
