@@ -6,12 +6,12 @@ start: 2016
 summary: Hobby YouTube project to give musicians a free digital stage.
 ---
 
-Expedita voluptatum ratione quas. Molestiae porro alias unde omnis illo ea. Enim aut expedita molestiae ea aut aut.
+[Vienna Sessions](youtube.com/viennasessions) is a hobby project, with which Max Schöberl and I are giving young musicians a digital stage. The project aims to deliver great professional sound ready to be listened by fans on a daily basis while featuring visually interesting scenes – despite its name – not only in Vienna, Austria.
 
-Minus quas quam eum. Qui voluptatem necessitatibus iusto in aut eos culpa. Laudantium sint quo totam corrupti earum maxime. Sequi cumque facilis rerum ex ducimus aut. Tempora laudantium sequi occaecati possimus ut aut veniam. Quos veritatis qui iure.
+Our rules for creating those music session videos are simple:
 
-Occaecati aspernatur ea facilis. Quia perferendis nostrum cum et quia qui. Delectus maxime labore aspernatur et. Veritatis quaerat eum qui et corrupti officiis in. Maiores quia sequi error ipsum. Itaque corrupti aut totam incidunt fuga veniam exercitationem.
+- We do not cut in between takes, so it's **always a single take**. But of course several takes may be recorded.
+- We do not take money to create those session, so being in featured in **a session is free**. Although we have engaged in contract work, Vienna Sessions should remain accessible to all andfun always comes first.
+- **We pick an artist** from our session request database. We cannot record everyone, but we do try to not favor a certain genre.
 
-Id eum quia sint. Sed dicta accusamus quo. Laborum est repudiandae asperiores et pariatur voluptate beatae.
-
-Nulla illum ut voluptas voluptas eos occaecati amet. Explicabo sed exercitationem exercitationem ullam et sed. Voluptatem dolor velit sequi ducimus perspiciatis itaque modi.
+So if you are making music and want to record a session with us, please [sign up in our artist database](https://goo.gl/forms/XWlc6YJIpYl2eb9F2).
