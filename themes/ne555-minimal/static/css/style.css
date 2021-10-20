@@ -8,7 +8,8 @@
 
   --txt-font-size: 24px;
   --txt-line-height: 34px;
-  --txt-letter-spacing: -0.019em;
+  /* --txt-letter-spacing: -0.019em; TODO: is that the right value?!*/
+  --txt-letter-spacing: -0.001em;
 
   --h1-font-size: 80px;
   --h1-line-height: 100px;
@@ -71,10 +72,10 @@
 html {
   font-family: "Inter var", sans-serif;
   font-feature-settings: "calt", "frac", "case", "ss02", "ss03", "zero";
-  font-size: var(--font-size-txt);
-  font-weight: var(--font-weight-txt);
-  line-height: var(--line-height-txt);
-  letter-spacing: var(--letter-spacing-txt);
+  font-size: var(--txt-font-size);
+  font-weight: var(--txt-font-weight);
+  line-height: var(--txt-line-height);
+  letter-spacing: var(--txt-letter-spacing);
   text-rendering: optimizeLegibility;
 }
 
@@ -365,8 +366,12 @@ p {
 
 img {
   max-width: 100%;
+  display: block;
 }
-
+img::after {
+  content: attr(alt);
+  color: var(--color-gray);
+}
 ol,
 ul {
   margin-bottom: 25px;
