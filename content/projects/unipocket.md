@@ -7,4 +7,10 @@ start: 2014
 end: 2016
 ---
 
-Deserunt molestiae voluptatem eveniet labore rem earum officiis sint. At dolorem voluptate reprehenderit dolore enim maiores. Suscipit doloremque sapiente velit nesciunt.
+UniPocket was an app for students to capture the social aspect of studying. It included many different features and could be described as a "super app" (which may have been its biggest flaw):
+
+- book marketplace
+- match making (for learn buddies, parties, dating, learning new languages via the tandem program, etc.)
+- sECTS (social ECTS)
+- daily lunch menus
+- 
