@@ -23,6 +23,6 @@ And we implemented even more features, which unfortunately I don't have screensh
 - sECTS (social ECTS)
 - news bombs: people could drop so-called "news bombs" (messages to other users) and set an explosion radius, if other UniPocket users would cross that time-space area they get a push notification containing the message
 
-Close before launch day, we started a guerilla marketing campaign in Vienna. But we didn't launch only in Austria – no, that would have been way to easy – we launched globally.
+Close before launch day, we started a guerilla marketing campaign in Vienna. But we didn't launch only in Austria – no, that would have been way to easy – we launched globally. For that we scraped hundreds of universities from all around the globe for their location, logo, new channels (social media and RSS), homepage, course of studies, etc.
 
-{{< figure src="/img/unipocket/unipocket-guerilla-marketing.jpg" caption="How we marketed our app.">}}
+{{< figure src="/img/unipocket/unipocket-guerilla-marketing.jpg" caption="How we marketed our app on launch day in Vienna.">}}
