@@ -20,11 +20,12 @@ UniPocket was an app for students to capture the social aspect of studying. It i
 - events (and who's attending)
 - useful information for students
 
-{{< figure src="/img/unipocket/unipocket-splash.png" caption="UniPocket start screen">}}
-{{< figure src="/img/unipocket/unipocket-books.png" caption="book marketplace">}}
+{{< figure src="/img/unipocket/unipocket-splash-books.png" caption="left: UniPocket start screen; right: book marketplace">}}
+
+{{< figure src="/img/unipocket/unipocket-chat-friends.png" caption="left: find my friends at university (friend radar on campus); right: chat between students">}}
+
 {{< figure src="/img/unipocket/unipocket-chat.png" caption="chat between students">}}
-{{< figure src="/img/unipocket/unipocket-events.png" caption="events (and who's attending)">}}
-{{< figure src="/img/unipocket/unipocket-friends.png" caption="find my friends at university (friend radar on campus)">}}
+{{< figure src="/img/unipocket/unipocket-friends.png" caption="">}}
 {{< figure src="/img/unipocket/unipocket-information.png" caption="useful information for students">}}
 {{< figure src="/img/unipocket/unipocket-lunch.png" caption="daily lunch deals">}}
 {{< figure src="/img/unipocket/unipocket-news.png" caption="university & campus news">}}
@@ -32,3 +33,5 @@ UniPocket was an app for students to capture the social aspect of studying. It i
 Marketing
 
 {{< figure src="/img/unipocket/unipocket-guerilla-marketing.jpg" caption="">}}
+
+events (and who's attending)
