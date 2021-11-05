@@ -8,8 +8,11 @@
 
   --txt-font-size: 24px;
   --txt-line-height: 34px;
-  /* --txt-letter-spacing: -0.019em; TODO: is that the right value?!*/
-  --txt-letter-spacing: -0.001em;
+  --txt-letter-spacing: -0.019em;
+
+  --txt-small-font-size: 15px;
+  --txt-small-letter-spacing: -0.009em;
+  --txt-small-line-height: 21px;
 
   --h1-font-size: 80px;
   --h1-line-height: 100px;
@@ -364,14 +367,32 @@ p {
   font-weight: var(--txt-font-weight);
 }
 
+figure {
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "image caption";
+}
+figure > img {
+  grid-area: image;
+}
+figure > figcaption {
+  grid-area: caption;
+  color: var(--color-txt-alt);
+}
+figcaption p {
+  font-size: var(--txt-small-font-size);
+  letter-spacing: var(--txt-small-letter-spacing);
+  line-height: var(--txt-small-line-height);
+}
 img {
   max-width: 100%;
-  display: block;
+  display: inline;
 }
-img::after {
-  content: attr(alt);
+/* img::after {
+  content: attr(alt); not implemented by most browsers :(
   color: var(--color-gray);
-}
+} */
 ol,
 ul {
   margin-bottom: 25px;

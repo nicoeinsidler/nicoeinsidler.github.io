@@ -13,4 +13,11 @@ UniPocket was an app for students to capture the social aspect of studying. It i
 - match making (for learn buddies, parties, dating, learning new languages via the tandem program, etc.)
 - sECTS (social ECTS)
 - daily lunch menus
-- 
+- university & campus news
+- news bombs: people could drop so-called "news bombs" (messages to other users) and set an explosion radius, if other UniPocket users would cross that time-space area they get a push notification containing the message
+- chat between students
+- find my friends at university ("friend radar" on campus)
+- events (and who's attending)
+- useful information for students
+
+

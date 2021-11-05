@@ -11,7 +11,7 @@ When the new [WU Wien](https://www.wu.ac.at/) campus was opened, students had a 
 
 Marco Hans, Maximilian Schöberl, Alexander Hofbauer and I (and some more folks) set out to help students decide what to eat. We built an iOS and Android app and a website featuring all lunch menu deals from the surrounding restaurants.
 
-![WU Campus Menü logo, the first wireframe sketches of the website and the app](/img/wu-campus-menüs/wu-campus-menus-setches.png)
+{{< figure src="/img/wu-campus-menüs/wu-campus-menus-sketches.png" caption="WU Campus Menü logo, the first wireframe sketches of the website and the app">}}
 
 As scraping the web back then was tedious (and we may not have had the right skills to do it in an efficient manner), we created a backend for restaurant to input their weekly menus. The backend was well received, because it was easy to use. After a few months its features were expanded with repeating and copying existing records for the next weeks and days. Businesses had to pay a small monthly fee in order to access the backend.
 

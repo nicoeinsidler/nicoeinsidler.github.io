@@ -8,7 +8,7 @@ summary: Hobby YouTube project to give musicians a free digital stage.
 
 [Vienna Sessions](youtube.com/viennasessions) is a hobby project, with which Max Schöberl and I are giving young musicians a digital stage. The project aims to deliver great professional sound ready to be consumed by fans on a daily basis while featuring visually interesting scenes – despite its name – not only in Vienna, Austria.
 
-![three frames taken from three different Vienna Sessions](/img/vienna-sessions/vienna-sessions-showreel.jpg)
+{{< figure src="/img/vienna-sessions/vienna-sessions-showreel.jpg" caption="three frames taken from three different Vienna Sessions">}}
 
 Our rules for creating those music session videos are simple:
 
