@@ -336,7 +336,8 @@ hr {
   border-top: 1px solid var(--color-txt);
   margin: 20px 0px;
 }
-p {
+p,
+figure {
   margin-bottom: 20px;
 }
 a,
@@ -374,14 +375,15 @@ figure {
   grid-template-areas: "image caption";
   grid-gap: 20px;
 }
-main.single figure:nth-of-type(2) {
+figure:nth-child(odd) {
   grid-template-columns: 1fr auto;
   grid-template-areas: "caption image";
 }
-
+figure + figure {
+  margin-top: 40px;
+}
 figure > img {
   grid-area: image;
-  max-width: 100%;
   max-height: 70vh;
 }
 figure > figcaption {
