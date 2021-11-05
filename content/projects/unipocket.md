@@ -9,29 +9,20 @@ end: 2016
 
 UniPocket was an app for students to capture the social aspect of studying. It included many different features and could be described as a "super app" (which may have been its biggest flaw):
 
-- book marketplace
-- match making (for learn buddies, parties, dating, learning new languages via the tandem program, etc.)
-- sECTS (social ECTS)
-- daily lunch menus
-- university & campus news
-- news bombs: people could drop so-called "news bombs" (messages to other users) and set an explosion radius, if other UniPocket users would cross that time-space area they get a push notification containing the message
-- chat between students
-- find my friends at university ("friend radar" on campus)
-- events (and who's attending)
-- useful information for students
-
 {{< figure src="/img/unipocket/unipocket-splash-books.png" caption="left: UniPocket start screen; right: book marketplace">}}
 
 {{< figure src="/img/unipocket/unipocket-chat-friends.png" caption="left: find my friends at university (friend radar on campus); right: chat between students">}}
 
-{{< figure src="/img/unipocket/unipocket-chat.png" caption="chat between students">}}
-{{< figure src="/img/unipocket/unipocket-friends.png" caption="">}}
-{{< figure src="/img/unipocket/unipocket-information.png" caption="useful information for students">}}
+{{< figure src="/img/unipocket/unipocket-events-news.png" caption="left: events (and who's attending); right: university & campus news">}}
+
 {{< figure src="/img/unipocket/unipocket-lunch.png" caption="daily lunch deals">}}
-{{< figure src="/img/unipocket/unipocket-news.png" caption="university & campus news">}}
 
-Marketing
+And we implemented even more features, which unfortunately I don't have screenshots of:
 
-{{< figure src="/img/unipocket/unipocket-guerilla-marketing.jpg" caption="">}}
+- match making (for learn buddies, parties, dating, learning new languages via the tandem program, etc.)
+- sECTS (social ECTS)
+- news bombs: people could drop so-called "news bombs" (messages to other users) and set an explosion radius, if other UniPocket users would cross that time-space area they get a push notification containing the message
 
-events (and who's attending)
+Close before launch day, we started a guerilla marketing campaign in Vienna. But we didn't launch only in Austria – no, that would have been way to easy – we launched globally.
+
+{{< figure src="/img/unipocket/unipocket-guerilla-marketing.jpg" caption="How we marketed our app.">}}
