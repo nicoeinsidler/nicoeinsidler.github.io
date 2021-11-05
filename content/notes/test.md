@@ -18,6 +18,12 @@ Odit mollitia repellat dolorem reprehenderit vel corporis ut. Qui temporibus rep
 
 Quas ea nesciunt omnis aliquid omnis est. Eum facilis quasi incidunt autem voluptas. Vel qui modi aspernatur voluptate corporis aut fugit id. Officiis saepe earum consectetur cupiditate. Animi sint repellat ratione. Nostrum nobis aut odit cum perferendis necessitatibus.
 
+```python
+from qiskit import *
+
+qc = QuantumCircuit(2)
+```
+
 Here is an unordered list:
 
 - some item
