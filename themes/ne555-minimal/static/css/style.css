@@ -349,7 +349,7 @@ a:hover {
   text-decoration: underline;
 }
 a:active {
-  color: white;
+  color: var(--color-accent-light);
 }
 a::after {
   content: "↗";
