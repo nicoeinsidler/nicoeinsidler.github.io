@@ -3,6 +3,7 @@ languageCode = "en-us"
 title = "Nico Einsidler."
 theme = "ne555-minimal"
 sectionPagesMenu = "nav"
+markup.highlight.noClasses=false
 
 [params]
   author = "Nico Einsidler"
