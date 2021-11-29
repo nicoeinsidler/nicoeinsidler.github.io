@@ -430,10 +430,21 @@ strong {
   font-weight: var(--txt-font-weight-bold);
 }
 
-code { font-family: 'Fira Code', monospace; }
-
+code,
+.highlight {
+  font-variant-ligatures: contextual;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+}
 @supports (font-variation-settings: normal) {
-  code { font-family: 'Fira Code VF', monospace; }
+  code,
+  .highlight {
+    font-variant-ligatures: contextual;
+    font-family: "JetBrains Mono", "Fira Code VF", monospace;
+  }
+}
+.highlight pre {
+  padding: 20px;
+  background: none;
 }
 
 /* -------------------------------------------------------------------------- */
