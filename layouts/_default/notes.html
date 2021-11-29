@@ -3,7 +3,7 @@
     <h1>{{ .Title }}</h1>
     {{ range (where .Site.RegularPages "Type" "in" (slice "notes")).GroupByDate "2006" }}
     <h2>{{ .Key }}</h2>
-    <ol>
+    <ol reversed>
         {{ range .Pages }}
         <li>
             <a href="{{ .Params.externalLink | default .RelPermalink }}">{{ .Title }}</a>
