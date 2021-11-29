@@ -23,6 +23,9 @@
   --h2-letter-spacing: -0.022em;
 
   --font-size-nav: 1em;
+
+  --code-font-size: 17.3333333px;
+  --code-line-height: 23px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -56,6 +59,20 @@
     --txt-font-weight-bold: 700;
     --h1-font-weight: 540;
     --h2-font-weight: 600;
+
+    --code-color: #f8f8f8;
+    --code-color-line-numbers: #7f7f7f;
+    --code-color-keyword: #66d9ef;
+    --code-color-blue: #66d9ef;
+    --code-color-red: #f92672;
+    --code-color-green: #a6e22e;
+    --code-color-purple: #ae81ff;
+    --code-color-yellow: #e6db74;
+    --code-color-grey: #75715e;
+    --code-color-comment: #75715e;
+    --code-color-error: #960050;
+    --code-color-error-bg: #1e0010;
+    --code-color-line-highlight: #ffffcc;
   }
 }
 
@@ -430,20 +447,17 @@ strong {
   font-weight: var(--txt-font-weight-bold);
 }
 
-code,
-.highlight {
-  font-variant-ligatures: contextual;
+code {
   font-family: "JetBrains Mono", "Fira Code", monospace;
 }
-@supports (font-variation-settings: normal) {
-  code,
-  .highlight {
-    font-variant-ligatures: contextual;
-    font-family: "JetBrains Mono", "Fira Code VF", monospace;
-  }
+p code {
+  font-size: calc(var(--txt-font-size) - 2px);
+}
+.highlight {
+  font-size: var(--code-font-size);
+  line-height: var(--code-line-height);
 }
 .highlight pre {
-  padding: 20px;
   background: none;
 }
 
@@ -507,7 +521,6 @@ main.list h2 {
 /* Background */
 .chroma {
   color: #f8f8f2;
-  background-color: #272822;
 }
 /* Other */
 .chroma .x {
@@ -540,6 +553,7 @@ main.list h2 {
   width: 100%;
   background-color: #ffffcc;
 }
+
 /* LineNumbersTable */
 .chroma .lnt {
   margin-right: 0.4em;
@@ -552,6 +566,7 @@ main.list h2 {
   padding: 0 0.4em 0 0.4em;
   color: #7f7f7f;
 }
+
 /* Keyword */
 .chroma .k {
   color: #66d9ef;
