@@ -7,3 +7,4 @@ end: 2020
 summary: Connecting people with contrary opinions to counteract filter bubbles.
 ---
 
+Connecting people with contrary opinions to counteract filter bubbles at [AndereMeinung.at](https://anderemeinung.at/).
