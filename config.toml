@@ -1,8 +1,11 @@
 baseURL = "https://ne555.io/"
 languageCode = "en-us"
 title = "Nico Einsidler."
-theme = "nicoeinsidler"
+theme = "ne555-minimal"
 sectionPagesMenu = "nav"
+[markup]
+  [markup.highlight]
+    noClasses=false
 
 [params]
   author = "Nico Einsidler"

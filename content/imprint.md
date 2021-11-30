@@ -4,9 +4,11 @@ date: 2021-05-31T21:20:10+02:00
 draft: false
 ---
 
-Nico Einsidler
+Nico Einsidler is responsible for the content on this website. It is brought to you via static generated files and hosted via [GitHub Pages](https://pages.github.com/).
 
-Kohlgasse 39, 1050 Vienna, Austria
+Kohlgasse 39  
+1050 Vienna  
+Austria
 
 ---
 
