@@ -1,7 +1,7 @@
 ---
 title: "Podman All the Things"
 date: 2021-12-05T01:33:10+01:00
-draft: true
+draft: false
 ---
 
 A few days ago while browsing [lobste.rs](https://lobste.rs/) I stumbled upon the article ["Dock Life: Using Docker for All The Things!"](https://nystudio107.com/blog/dock-life-using-docker-for-all-the-things) written by Andrew Welch. It had then gotten onto the upper half of the first page on lobste.rs and a few days ago even Chris Coyer from [CSS-Tricks.com wrote about it](https://css-tricks.com/dock-life-using-docker-for-all-the-things/).
