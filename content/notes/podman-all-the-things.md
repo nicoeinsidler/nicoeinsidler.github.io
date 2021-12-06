@@ -71,14 +71,7 @@ First option is just insane. The second option can be a good option for programs
 
 Once I was already creating all kinds of different aliases to `podman run` commands, I was already borderline close to `toolbox`. [Toolbox](https://containertoolbx.org/) let's you create different containerized environments for all kinds of projects.
 
-Let's say you want to code some Qiskit. You may create a toolbox by running `toolbox create qiskit`. The environment can now be entered via 
-
-```bash
-[nicoeinsidler@fedora]$ toolbox list
-IMAGE ID      IMAGE NAME                                    CREATED
-ab8bc106d4a7  registry.fedoraproject.org/fedora-toolbox:35  4 weeks ago
-```
-
+Let's say you want to write a program and run it on a Quantum Computer with Qiskit. You may create a toolbox by running `toolbox create qiskit`. The environment can now be entered via `toolboox enter qiskit`. This will take you in a container spun up in the background with podman.
 
 ```bash
 [nicoeinsidler@fedora]$ toolbox create qiskit
@@ -90,8 +83,25 @@ Enter with: toolbox enter qiskit
 ⬢[nicoeinsidler@toolbox]$
 ```
 
+Now you can install programs and set up your work environment without impacting the main underlying system. On Fedora the container is created from the fedora-toolbox image which has `dnf` installed.
+
+Let us install Jupyter Lab by typing `python -m pip install  jupyterlab`. (Pip is not in the PATH, therefore I am using it in this way, but for this matter `pip = python -m pip`.)
+
+Once the installation is done, we can use Jupyter Lab as if it where installed on our base operating system. And when you're finished working on your project, just type `exit` to exit the toolbox.
+
+With `toolbox list` all toolbox containers can be viewed. Be aware, that even if you exit out of a toolbox (container) it won't stop running. You can pause the toolbox with `toolbox pause`. For more information, check out the man pages.
+
+```bash
+[nicoeinsidler@fedora]$ toolbox list
+IMAGE ID      IMAGE NAME                                    CREATED
+ab8bc106d4a7  registry.fedoraproject.org/fedora-toolbox:35  4 weeks ago
+```
+
 ## Conclusio
 
-- `nix-env`
-- `toolbox`
+The idea of using containerized programs, or even containerized sets of programs, or even containerized sets of programs with a custom configuration is an interesting idea. But as always, the right tools should be used for the right problems. Using Docker and aliases for single programs like `ffmpeg` or `gcc` is a great idea, but once you begin creating your own images, please consider those alternatives: 
+
+- `nix-env`: tool to create environments in which programs can be installed, so the same program in different versions can co-exist
+- `toolbox`: create persistent containers for installing specific tools (editors, SDKs, compilers, ...)
+- `Dockerfile`: when you find yourself defining your own image, because no base Docker image fits, consider going the "traditional" approach: each project with its own Dockerfile
 
