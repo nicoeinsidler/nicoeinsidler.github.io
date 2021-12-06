@@ -8,7 +8,7 @@ menu:
 js: js/toggle.js
 ---
 
-Hi, my name is Nico Einsidler. I work at the intersection of [science](#science), [engineering](#engineering) and [design](#design) to help tackling big challenges.
+Hi, my name is Nico Einsidler. I work at the intersection of [science](#science), [engineering](#engineering) and [design](#design) to help tackle big challenges.
 
 {{< pAnchor id="science">}}I am pursuing my masters in technical physics at [TU Wien](https://www.tuwien.at/), where I specialized in neutron and quantum physics. I got the chance to work with amazing people at nuclear reactors in Grenoble & Vienna and [co-authored a paper](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.023175) with them.{{< /pAnchor >}}
 
