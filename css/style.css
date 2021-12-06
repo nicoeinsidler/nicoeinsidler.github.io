@@ -433,7 +433,8 @@ img {
   color: var(--color-gray);
 } */
 ol,
-ul {
+ul,
+.highlight {
   margin-bottom: 25px;
 }
 ol li,
