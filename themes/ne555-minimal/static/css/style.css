@@ -350,6 +350,7 @@ h1 {
   line-height: var(--h1-line-height);
   letter-spacing: var(--h1-letter-spacing);
   margin-bottom: 40px;
+  hyphens: auto;
 }
 
 h2 {
@@ -395,6 +396,7 @@ li,
 p {
   font-size: var(--txt-font-size);
   font-weight: var(--txt-font-weight);
+  hyphens: auto;
 }
 
 figure {
