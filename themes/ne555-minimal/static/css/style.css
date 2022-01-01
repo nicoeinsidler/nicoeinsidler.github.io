@@ -7,7 +7,9 @@
   --padding-main: 55px;
 
   --txt-font-size: 24px;
+  /* --txt-font-size: calc(16px + 0.5vw * 1.5); */
   --txt-line-height: 34px;
+  /* --txt-line-height: calc((16px + 0.5vw * 1.5) * 34/24); */
   --txt-letter-spacing: -0.019em;
 
   --txt-small-font-size: 15px;
@@ -26,6 +28,31 @@
 
   --code-font-size: 17.3333333px;
   --code-line-height: 23px;
+}
+@media only screen and (max-width: 600px) {
+  :root {
+    --txt-font-size: 14px;
+    --txt-letter-spacing: -0.006em;
+    --txt-line-height: 20px;
+  
+    --txt-small-font-size: 14px;
+    --txt-small-letter-spacing: -0.006em;
+    --txt-small-line-height: 20px;
+  
+
+    --h1-font-size: 40px;
+    --h1-letter-spacing: -0.022em;
+    --h1-line-height: 56px;
+  
+    --h2-font-size: 20px;
+    --h2-letter-spacing: -0.017em;
+    --h2-line-height: 28px;
+  
+    --font-size-nav: 1em;
+  
+    --code-font-size: 12px;
+    --code-line-height: 19px;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -87,6 +114,8 @@
     --code-color-line-highlight: #ffffcc;
   }
 }
+
+
 
 /* -------------------------------------------------------------------------- */
 /*                                    Reset                                   */
@@ -245,7 +274,9 @@ footer ul {
 
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) {
-
+  body {
+    background-color: grey;
+  }
 } */
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
