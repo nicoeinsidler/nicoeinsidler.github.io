@@ -31,6 +31,8 @@
 }
 @media only screen and (max-width: 600px) {
   :root {
+    --padding-main: 30px;
+
     --txt-font-size: 14px;
     --txt-letter-spacing: -0.006em;
     --txt-line-height: 20px;
