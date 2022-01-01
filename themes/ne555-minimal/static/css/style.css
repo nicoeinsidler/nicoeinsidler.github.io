@@ -405,22 +405,6 @@ p,
 figure {
   margin-bottom: 20px;
 }
-
-@media only screen and (max-width: 600px) {
-  h1 {
-    margin-bottom: 20px;
-  }
-  h2 {
-    margin: 25px 0px 15px 0px;
-  }
-  hr {
-    margin: 10px 0px;
-  }
-  p, figure {
-    margin-bottom: 10px;
-  }
-}
-
 a,
 a:visited {
   color: var(--color-accent-base);
@@ -526,6 +510,36 @@ p code {
 }
 .highlight pre {
   background: none;
+}
+
+@media only screen and (max-width: 600px) {
+  h1 {
+    margin-bottom: 20px;
+  }
+  h2 {
+    margin: 25px 0px 15px 0px;
+  }
+  hr {
+    margin: 10px 0px;
+  }
+  p, figure {
+    margin-bottom: 10px;
+  }
+  ol,
+  ul,
+  .highlight {
+    margin-bottom: 12px;
+  }
+  ol li,
+  ul li {
+    margin-bottom: 4px;
+  }
+  ol {
+    padding-left: 40px;
+  }
+  ul {
+    padding-left: 20px;
+  }
 }
 
 /* -------------------------------------------------------------------------- */
