@@ -31,7 +31,7 @@ But there are two problems:
 
 ## Using Podman
 
-So the journey continued and I started to create podman alternatives. This is fairly simple, because it already states on its homepage, that podman can be used pretty much as a drop-in replacement for docker, e.g. `alias docker=podman`. Here's an example with sqlite3:
+So the journey continued and I started to create podman alternatives. This is fairly simple – as already described on its homepage – because podman can be used as a drop-in replacement for docker, e.g. `alias docker=podman`. Here's an example with sqlite3:
 
 ```bash
 [nicoeinsidler@fedora]$ podman run --rm -it -v 'pwd':/app nouchka/sqlite3
@@ -65,11 +65,11 @@ You now have basically two options:
 - cram all installation and execution instructions into one line (very ugly and not handy)
 - create your own image (using `Dockerfile`)
 
-First option is just insane. The second option can be a good option for programs that are not yet packed into a container and made available through a public container registry. This is a great idea for containerizing – let's say – [`bat`](https://github.com/sharkdp/bat), but if you finding yourself installing dependencies, well, then it you don't need an alias and just store the `Dockerfile` in the project itself.
+First option is just insane. The second option can be a good option for programs that are not yet packed into a container and made available through a public container registry. This is a great idea for containerizing – let's say – [`bat`](https://github.com/sharkdp/bat), but if you find yourself installing dependencies, well, then you don't need an alias and just store the `Dockerfile` in the project itself.
 
 ## Toolbox
 
-Once I was already creating all kinds of different aliases to `podman run` commands, I was already borderline close to `toolbox`. [Toolbox](https://containertoolbx.org/) let's you create different containerized environments for all kinds of projects.
+Once I was creating all kinds of different aliases to `podman run` commands, I was already borderline close to `toolbox`. [Toolbox](https://containertoolbx.org/) let's you create different containerized environments for all kinds of projects.
 
 Let's say you want to write a program and run it on a Quantum Computer with Qiskit. You may create a toolbox by running `toolbox create qiskit`. The environment can now be entered via `toolboox enter qiskit`. This will take you in a container spun up in the background with podman.
 
@@ -78,7 +78,7 @@ Let's say you want to write a program and run it on a Quantum Computer with Qisk
 Creating container qiskit: | Created container: qiskit
 Enter with: toolbox enter qiskit
 
-[nicoeinsidler@fedora docker-all-the-things]$ toolbox enter qiskit
+[nicoeinsidler@fedora]$ toolbox enter qiskit
 
 ⬢[nicoeinsidler@toolbox]$
 ```
