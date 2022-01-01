@@ -177,7 +177,6 @@ header {
   position: sticky;
   bottom: 0px;
   left: 0px;
-  padding-top: 30px;
 }
 nav ul {
   display: flex;
@@ -185,6 +184,7 @@ nav ul {
   flex-wrap: wrap;
   justify-content: space-evenly;
   padding-left: 0px !important;
+  margin: 10px 0px;
 }
 nav li {
   font-size: var(--font-size-nav);
