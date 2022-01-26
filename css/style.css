@@ -142,6 +142,7 @@ html {
   line-height: var(--txt-line-height);
   letter-spacing: var(--txt-letter-spacing);
   text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale; 
 }
 
 body {
