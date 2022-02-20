@@ -36,22 +36,21 @@
     --txt-font-size: 14px;
     --txt-letter-spacing: -0.006em;
     --txt-line-height: 20px;
-  
+
     --txt-small-font-size: 14px;
     --txt-small-letter-spacing: -0.006em;
     --txt-small-line-height: 20px;
-  
 
     --h1-font-size: 40px;
     --h1-letter-spacing: -0.022em;
     --h1-line-height: 56px;
-  
+
     --h2-font-size: 20px;
     --h2-letter-spacing: -0.017em;
     --h2-line-height: 28px;
-  
+
     --font-size-nav: 1em;
-  
+
     --code-font-size: 12px;
     --code-line-height: 19px;
   }
@@ -119,8 +118,6 @@
   }
 }
 
-
-
 /* -------------------------------------------------------------------------- */
 /*                                    Reset                                   */
 /* -------------------------------------------------------------------------- */
@@ -143,7 +140,7 @@ html {
   letter-spacing: var(--txt-letter-spacing);
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
-  -moz-osx-font-smoothing: grayscale; 
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -171,7 +168,7 @@ header {
 
 main {
   min-height: 100vh;
-  max-width: 100%;;
+  max-width: 100%;
   padding-bottom: var(--padding-main);
   /* overflow-x: hidden; */
 }
@@ -526,7 +523,8 @@ p code {
   hr {
     margin: 10px 0px;
   }
-  p, figure {
+  p,
+  figure {
     margin-bottom: 10px;
   }
   ol,
@@ -917,4 +915,15 @@ main.list h2 {
 }
 /* TextWhitespace */
 .chroma .w {
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Mathjax                                  */
+/* -------------------------------------------------------------------------- */
+
+code.has-jax {
+  -webkit-font-smoothing: antialiased;
+  background: inherit !important;
+  border: none !important;
+  font-size: 100%;
 }
