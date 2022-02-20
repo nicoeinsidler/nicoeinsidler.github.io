@@ -95,3 +95,66 @@ qc.draw(output="mpl")
 ![whole qRAM super simple example circuit](/img/qram/qram-2.svg)
 
 We've now successfully created our first qRAM example. This example is a super simple one, but one can for example take it further by creating an encoding function that takes a data array as an input and returns a quantum circuit.
+
+## More Qubit Example
+
+Let us now try it with some more qubits. To be exact with a data array of length 4 and data chunks within the range 0-7.
+
+This means for our quantum registers:
+
+- **address register** needs 2 qubits, so we can represent $2^2 = 4$ addresses needed (length of our data array is $\leq 4$)
+- **data register** will need 3 qubits in order to be able to represent $2^3=8$ different integers
+
+In this example let us store the values `data = [2, 4, 5, 7]` in our qRAM. Because this work slowly becomes tedious to manually write, let us also take an naive approach in creating a generic qRAM encoder but still specific to the array length and data size (this could be generalized further of course).
+
+```python
+def padded_bin(number: int, padding: int) -> str:
+    """takes a number and a padding to create the numbers binary
+    representation with added padding to the left by using rjust
+    """
+    return bin(number)[2:].rjust(padding, "0")
+
+def store_in_qram(qc: QuantumCircuit,
+                  address: int, 
+                  address_register: QuantumRegister, 
+                  data: int, 
+                  data_register: QuantumRegister):
+    """encodes data in address"""
+    
+    len_address = len(address_register)
+    len_data = len(data_register)
+    
+    # set NOT gates to iterate through addresses
+    for i, bit in enumerate(list(padded_bin(address, len_address))):
+        if not bool(int(bit)):
+            qc.x(address_register[i])    
+
+    # set bits according to encoded data points 
+    for i, bit in enumerate(list(padded_bin(data, len_data))):
+        if bool(int(bit)):
+            params = [address_register[j] for j in range(len_address)]
+            params.append(data_register[i])
+            qc.ccx(*params)
+            
+    # undo NOT gates for next address  
+    for i, bit in enumerate(list(padded_bin(address, len_address))):
+        if not bool(int(bit)):
+            qc.x(address_register[i])
+    
+    qc.barrier()
+
+a = QuantumRegister(2, name="address")
+d = QuantumRegister(3, name="data")
+qc = QuantumCircuit(a, d)
+
+# superposition of the address space
+qc.h(a)
+qc.barrier()
+
+data = [1,2,5,7]
+
+for address, data in zip(range(len(a)**2), data):
+    store_in_qram(qc, address, a, data, d)
+
+qc.draw(output="mpl", filename="qram-3.svg")
+```
