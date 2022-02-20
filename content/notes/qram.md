@@ -151,10 +151,12 @@ qc = QuantumCircuit(a, d)
 qc.h(a)
 qc.barrier()
 
-data = [1,2,5,7]
+data = [2,4,5,7]
 
 for address, data in zip(range(len(a)**2), data):
     store_in_qram(qc, address, a, data, d)
 
-qc.draw(output="mpl", filename="qram-3.svg")
+qc.draw(output="mpl")
 ```
+
+![encoding information in qRAM](/img/qram/qram-3.svg)
