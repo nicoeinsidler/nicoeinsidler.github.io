@@ -61,7 +61,7 @@ qc.cx(a, d[1])
 qc.draw(output="mpl")
 ```
 
-TODO: Add output of Qiskit!
+![encoding of the data to the qRAM, this is almost the whole circuit for this qRAM example](/img/qram/qram-1.svg)
 
 We now successfully encoded our data points and addressed them via the one address qubit. The next step is pretty easy, because we just have to create a uniform superposition of the address qubits. This can be easily done via a Hadamard gate.
 
@@ -92,4 +92,6 @@ qc.cx(a, d[1])
 qc.draw(output="mpl")
 ```
 
-We've now successfully created our first qRAM example. This example is a super simple one, but one can for example take it further by creating an encoding function that takes an data array as an input and returns a quantum circuit.
+![whole qRAM super simple example circuit](/img/qram/qram-2.svg)
+
+We've now successfully created our first qRAM example. This example is a super simple one, but one can for example take it further by creating an encoding function that takes a data array as an input and returns a quantum circuit.
