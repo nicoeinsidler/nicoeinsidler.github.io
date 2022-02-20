@@ -5,7 +5,7 @@ draft: false
 mathjax: true
 ---
 
-A concept of a quantum random access memory was [first proposed in 2007](https://arxiv.org/pdf/0708.1879.pdf). It offers a a way to randomly address $N=2^n$ data cells with $n$ bits.
+A concept of a quantum random access memory was [first proposed in 2007](https://arxiv.org/pdf/0708.1879.pdf). It offers a way to randomly address $N=2^n$ data cells with $n$ bits.
 
 ## Basic Idea
 
