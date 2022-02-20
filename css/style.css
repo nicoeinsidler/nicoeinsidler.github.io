@@ -925,8 +925,6 @@ main.list h2 {
   -webkit-font-smoothing: antialiased;
   background: inherit !important;
   border: none !important;
-  font-size: 100%;
-  overflow-x: scroll;
 }
 
 /* overflow doesn't seem to work... mhmm */
