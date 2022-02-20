@@ -5,7 +5,7 @@ draft: false
 mathjax: true
 ---
 
-A concept of a quantum random access memory was [first proposed in 2007](https://arxiv.org/pdf/0708.1879.pdf). It offers a a way to randomly address $N=2^n$ data cells with $n$ bits.
+A concept of a quantum random access memory was [first proposed in 2007](https://arxiv.org/pdf/0708.1879.pdf). It offers a way to randomly address $N=2^n$ data cells with $n$ bits.
 
 ## Basic Idea
 
@@ -108,6 +108,8 @@ This means for our quantum registers:
 In this example let us store the values `data = [2, 4, 5, 7]` in our qRAM. Because this work slowly becomes tedious to manually write, let us also take an naive approach in creating a generic qRAM encoder but still specific to the array length and data size (this could be generalized further of course).
 
 ```python
+from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+
 def padded_bin(number: int, padding: int) -> str:
     """takes a number and a padding to create the numbers binary
     representation with added padding to the left by using rjust
