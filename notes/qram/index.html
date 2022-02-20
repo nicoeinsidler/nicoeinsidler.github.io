@@ -1,0 +1,169 @@
+<!doctype html><html><head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel=stylesheet href=https://rsms.me/inter/inter.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css>
+<link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon/favicon-16x16.png>
+<link rel=manifest href=/favicon/site.webmanifest>
+<link rel=mask-icon href=/favicon/safari-pinned-tab.svg color=#008eff>
+<meta name=msapplication-TileColor content="#008eff">
+<meta name=theme-color content="#ffffff">
+<link rel=stylesheet href=https://ne555.io/css/style.css>
+<title>Nico Einsidler. | qRAM</title>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:!0,processEnvironments:!0},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}},window.addEventListener('load',a=>{document.querySelectorAll("mjx-container").forEach(function(a){a.parentElement.classList+='has-jax '})})</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type=text/javascript id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js></script>
+</head><body><header>
+<nav>
+<ul>
+<li><a href=/>NE555</a></li>
+<li><a href=/notes/>Notes</a></li>
+<li><a href=/projects/>Projects</a></li>
+</ul>
+</nav>
+</header>
+<main aria-role=main class=single>
+<h1>qRAM</h1>
+<p>A concept of a quantum random access memory was <a href=https://arxiv.org/pdf/0708.1879.pdf>first proposed in 2007</a>. It offers a a way to randomly address $N=2^n$ data cells with $n$ bits.</p>
+<h2 id=basic-idea>Basic Idea</h2>
+<p>The basic idea of qRAM is to use address qubits to point to some data in a data qubit register. Encoding of the information in the data register can be done by using controlled gates on the data register (if the information is consisting of only 0&rsquo;s and 1&rsquo;s CNOT gates are used). The address qubit register acts now as the controlling qubits.</p>
+<p>The address qubit can be brought into a superposition of all addresses.</p>
+<p>$$ \sum_j \frac{1}{\sqrt{N}} |j\rangle_a |0\rangle_d \xrightarrow{\text{qRAM}} \sum_j \frac{1}{\sqrt{N}} |j\rangle_a |D_j\rangle_d$$</p>
+<h2 id=super-simple-example>Super Simple Example</h2>
+<p>Consider now two very simple data points we want to encode and be able to address using one address qubit. Let&rsquo;s store the two numbers 2 and 3 in our data register.</p>
+<p>First, we must convert the two numbers into binary representation:</p>
+<ul>
+<li>$2 \rightarrow 10$</li>
+<li>$3 \rightarrow 11$</li>
+</ul>
+<p>The number of data points now governs the number of address qubits needed. In our case we want to store two numbers, so the length of our data array <code>data = [2, 3]</code> is 2.</p>
+<p>Let us first go through it in formulas. Taking the formular above and inputting our data, we get:</p>
+<p>$$ \sum_j \frac{1}{\sqrt{N}} |n\rangle_a |0\rangle_d = \sum_{j \in { 0, 1 }} \frac{1}{\sqrt{2}} |j\rangle_a|00\rangle_d = \frac{|0\rangle_a + |1\rangle_a}{\sqrt{2}} |00\rangle_d$$</p>
+<p>Encoding our information in qRAM now yields:</p>
+<p>$$ \frac{|0\rangle_a + |1\rangle_a}{\sqrt{2}} |00\rangle_d \xrightarrow{\text{qRAM}} \frac{1}{\sqrt{2}} (|0\rangle_a |10\rangle_d + |1\rangle_a |11\rangle_d) = \sum_j \frac{1}{\sqrt{N}} |j\rangle_a |D_j\rangle_d$$</p>
+<p>We now see that whenever we measure the address qubit in state $|0\rangle$, the data register will be in a state representing the data point 10 in binary or the number 2 in decimal. Whenever the address qubit is measured in state $|1\rangle$, we know that our data must encode the number 3 for us.</p>
+<p>So, how would we crate a quantum circuit for that? Let&rsquo;s break it down to its consituent parts.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>from</span> <span class=nn>qiskit</span> <span class=kn>import</span> <span class=n>QuantumCircuit</span><span class=p>,</span> <span class=n>QuantumRegister</span><span class=p>,</span> <span class=n>ClassicalRegister</span>
+
+<span class=c1># create all necessary registers</span>
+<span class=n>a</span> <span class=o>=</span> <span class=n>QuantumRegister</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=s2>&#34;address&#34;</span><span class=p>)</span>
+<span class=n>d</span> <span class=o>=</span> <span class=n>QuantumRegister</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=s2>&#34;data&#34;</span><span class=p>)</span>
+<span class=n>qc</span> <span class=o>=</span> <span class=n>QuantumCircuit</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>d</span><span class=p>)</span>
+
+<span class=c1># address 0 encoding the number 2 for us (binary 10)</span>
+<span class=c1># 0 --&gt; 10</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>x</span><span class=p>(</span><span class=n>a</span><span class=p>)</span> <span class=c1># address 0 should be used, therefore we need to use the NOT in order to have an effect when using the CNOT gate</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>cx</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>d</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=c1># whenever address qubit is in state 0, the NOT will flip it to 1 and this will trigger the CNOT to encode 10 for us (data0 = 1, data1 = 0)</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>x</span><span class=p>(</span><span class=n>a</span><span class=p>)</span> <span class=c1># we just need to flip it back where it was before</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>barrier</span><span class=p>()</span>
+
+<span class=c1># address 1 encoding the number 3 for us (binary 11)</span>
+<span class=c1># 1 --&gt; 11</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>cx</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>d</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>cx</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>d</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+
+<span class=n>qc</span><span class=o>.</span><span class=n>draw</span><span class=p>(</span><span class=n>output</span><span class=o>=</span><span class=s2>&#34;mpl&#34;</span><span class=p>)</span>
+</code></pre></div><p><img src=/img/qram/qram-1.svg alt="encoding of the data to the qRAM, this is almost the whole circuit for this qRAM example"></p>
+<p>We now successfully encoded our data points and addressed them via the one address qubit. The next step is pretty easy, because we just have to create a uniform superposition of the address qubits. This can be easily done via a Hadamard gate.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>from</span> <span class=nn>qiskit</span> <span class=kn>import</span> <span class=n>QuantumCircuit</span><span class=p>,</span> <span class=n>QuantumRegister</span><span class=p>,</span> <span class=n>ClassicalRegister</span>
+
+<span class=c1># create all necessary registers</span>
+<span class=n>a</span> <span class=o>=</span> <span class=n>QuantumRegister</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=s2>&#34;address&#34;</span><span class=p>)</span>
+<span class=n>d</span> <span class=o>=</span> <span class=n>QuantumRegister</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=s2>&#34;data&#34;</span><span class=p>)</span>
+<span class=n>qc</span> <span class=o>=</span> <span class=n>QuantumCircuit</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>d</span><span class=p>)</span>
+
+<span class=c1># bringin a into a superposition of (|0&gt; + |1&gt;)/sqrt(2)</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>h</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>barrier</span><span class=p>()</span>
+
+<span class=c1># address 0 encoding the number 2 for us (binary 10)</span>
+<span class=c1># 0 --&gt; 10</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>x</span><span class=p>(</span><span class=n>a</span><span class=p>)</span> <span class=c1># address 0 should be used, therefore we need to use the NOT in order to have an effect when using the CNOT gate</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>cx</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>d</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span> <span class=c1># whenever address qubit is in state 0, the NOT will flip it to 1 and this will trigger the CNOT to encode 10 for us (data0 = 1, data1 = 0)</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>x</span><span class=p>(</span><span class=n>a</span><span class=p>)</span> <span class=c1># we just need to flip it back where it was before</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>barrier</span><span class=p>()</span>
+
+<span class=c1># address 1 encoding the number 3 for us (binary 11)</span>
+<span class=c1># 1 --&gt; 11</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>cx</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>d</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>cx</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>d</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+
+<span class=n>qc</span><span class=o>.</span><span class=n>draw</span><span class=p>(</span><span class=n>output</span><span class=o>=</span><span class=s2>&#34;mpl&#34;</span><span class=p>)</span>
+</code></pre></div><p><img src=/img/qram/qram-2.svg alt="whole qRAM super simple example circuit"></p>
+<p>We&rsquo;ve now successfully created our first qRAM example. This example is a super simple one, but one can for example take it further by creating an encoding function that takes a data array as an input and returns a quantum circuit.</p>
+<h2 id=more-qubit-example>More Qubit Example</h2>
+<p>Let us now try it with some more qubits. To be exact with a data array of length 4 and data chunks within the range 0-7.</p>
+<p>This means for our quantum registers:</p>
+<ul>
+<li><strong>address register</strong> needs 2 qubits, so we can represent $2^2 = 4$ addresses needed (length of our data array is $\leq 4$)</li>
+<li><strong>data register</strong> will need 3 qubits in order to be able to represent $2^3=8$ different integers</li>
+</ul>
+<p>In this example let us store the values <code>data = [2, 4, 5, 7]</code> in our qRAM. Because this work slowly becomes tedious to manually write, let us also take an naive approach in creating a generic qRAM encoder but still specific to the array length and data size (this could be generalized further of course).</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>def</span> <span class=nf>padded_bin</span><span class=p>(</span><span class=n>number</span><span class=p>:</span> <span class=nb>int</span><span class=p>,</span> <span class=n>padding</span><span class=p>:</span> <span class=nb>int</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=nb>str</span><span class=p>:</span>
+    <span class=s2>&#34;&#34;&#34;takes a number and a padding to create the numbers binary
+</span><span class=s2>    representation with added padding to the left by using rjust
+</span><span class=s2>    &#34;&#34;&#34;</span>
+    <span class=k>return</span> <span class=nb>bin</span><span class=p>(</span><span class=n>number</span><span class=p>)[</span><span class=mi>2</span><span class=p>:]</span><span class=o>.</span><span class=n>rjust</span><span class=p>(</span><span class=n>padding</span><span class=p>,</span> <span class=s2>&#34;0&#34;</span><span class=p>)</span>
+
+<span class=k>def</span> <span class=nf>store_in_qram</span><span class=p>(</span><span class=n>qc</span><span class=p>:</span> <span class=n>QuantumCircuit</span><span class=p>,</span>
+                  <span class=n>address</span><span class=p>:</span> <span class=nb>int</span><span class=p>,</span> 
+                  <span class=n>address_register</span><span class=p>:</span> <span class=n>QuantumRegister</span><span class=p>,</span> 
+                  <span class=n>data</span><span class=p>:</span> <span class=nb>int</span><span class=p>,</span> 
+                  <span class=n>data_register</span><span class=p>:</span> <span class=n>QuantumRegister</span><span class=p>):</span>
+    <span class=s2>&#34;&#34;&#34;encodes data in address&#34;&#34;&#34;</span>
+    
+    <span class=n>len_address</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>address_register</span><span class=p>)</span>
+    <span class=n>len_data</span> <span class=o>=</span> <span class=nb>len</span><span class=p>(</span><span class=n>data_register</span><span class=p>)</span>
+    
+    <span class=c1># set NOT gates to iterate through addresses</span>
+    <span class=k>for</span> <span class=n>i</span><span class=p>,</span> <span class=n>bit</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=nb>list</span><span class=p>(</span><span class=n>padded_bin</span><span class=p>(</span><span class=n>address</span><span class=p>,</span> <span class=n>len_address</span><span class=p>))):</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=nb>bool</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>bit</span><span class=p>)):</span>
+            <span class=n>qc</span><span class=o>.</span><span class=n>x</span><span class=p>(</span><span class=n>address_register</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>    
+
+    <span class=c1># set bits according to encoded data points </span>
+    <span class=k>for</span> <span class=n>i</span><span class=p>,</span> <span class=n>bit</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=nb>list</span><span class=p>(</span><span class=n>padded_bin</span><span class=p>(</span><span class=n>data</span><span class=p>,</span> <span class=n>len_data</span><span class=p>))):</span>
+        <span class=k>if</span> <span class=nb>bool</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>bit</span><span class=p>)):</span>
+            <span class=n>params</span> <span class=o>=</span> <span class=p>[</span><span class=n>address_register</span><span class=p>[</span><span class=n>j</span><span class=p>]</span> <span class=k>for</span> <span class=n>j</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>len_address</span><span class=p>)]</span>
+            <span class=n>params</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>data_register</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>
+            <span class=n>qc</span><span class=o>.</span><span class=n>ccx</span><span class=p>(</span><span class=o>*</span><span class=n>params</span><span class=p>)</span>
+            
+    <span class=c1># undo NOT gates for next address  </span>
+    <span class=k>for</span> <span class=n>i</span><span class=p>,</span> <span class=n>bit</span> <span class=ow>in</span> <span class=nb>enumerate</span><span class=p>(</span><span class=nb>list</span><span class=p>(</span><span class=n>padded_bin</span><span class=p>(</span><span class=n>address</span><span class=p>,</span> <span class=n>len_address</span><span class=p>))):</span>
+        <span class=k>if</span> <span class=ow>not</span> <span class=nb>bool</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>bit</span><span class=p>)):</span>
+            <span class=n>qc</span><span class=o>.</span><span class=n>x</span><span class=p>(</span><span class=n>address_register</span><span class=p>[</span><span class=n>i</span><span class=p>])</span>
+    
+    <span class=n>qc</span><span class=o>.</span><span class=n>barrier</span><span class=p>()</span>
+
+<span class=n>a</span> <span class=o>=</span> <span class=n>QuantumRegister</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=n>name</span><span class=o>=</span><span class=s2>&#34;address&#34;</span><span class=p>)</span>
+<span class=n>d</span> <span class=o>=</span> <span class=n>QuantumRegister</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=n>name</span><span class=o>=</span><span class=s2>&#34;data&#34;</span><span class=p>)</span>
+<span class=n>qc</span> <span class=o>=</span> <span class=n>QuantumCircuit</span><span class=p>(</span><span class=n>a</span><span class=p>,</span> <span class=n>d</span><span class=p>)</span>
+
+<span class=c1># superposition of the address space</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>h</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+<span class=n>qc</span><span class=o>.</span><span class=n>barrier</span><span class=p>()</span>
+
+<span class=n>data</span> <span class=o>=</span> <span class=p>[</span><span class=mi>2</span><span class=p>,</span><span class=mi>4</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>7</span><span class=p>]</span>
+
+<span class=k>for</span> <span class=n>address</span><span class=p>,</span> <span class=n>data</span> <span class=ow>in</span> <span class=nb>zip</span><span class=p>(</span><span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>a</span><span class=p>)</span><span class=o>**</span><span class=mi>2</span><span class=p>),</span> <span class=n>data</span><span class=p>):</span>
+    <span class=n>store_in_qram</span><span class=p>(</span><span class=n>qc</span><span class=p>,</span> <span class=n>address</span><span class=p>,</span> <span class=n>a</span><span class=p>,</span> <span class=n>data</span><span class=p>,</span> <span class=n>d</span><span class=p>)</span>
+
+<span class=n>qc</span><span class=o>.</span><span class=n>draw</span><span class=p>(</span><span class=n>output</span><span class=o>=</span><span class=s2>&#34;mpl&#34;</span><span class=p>)</span>
+</code></pre></div><p><img src=/img/qram/qram-3.svg alt="encoding information in qRAM"></p>
+</main>
+<footer>
+<ul id=social>
+<li><a href=https://twitter.com/ne555>Twitter</a></li>
+<li><a href=https://www.linkedin.com/in/nicoeinsidler/>LinkedIn</a></li>
+<li><a href=https://github.com/nicoeinsidler>GitHub</a></li>
+<li><a href=https://www.instagram.com/nicoeinsidler/>Instagram</a></li>
+<li><a href=https://youtube.com/viennasessions>YouTube</a></li>
+</ul>
+<ul id=boring-links>
+<li><a href=https://ne555.io/>Home</a></li>
+<li><a href=https://ne555.io/contact>Contact</a></li>
+<li><a href=https://ne555.io/imprint>Imprint</a></li>
+</ul>
+</footer></body>
+</html>
