@@ -170,7 +170,7 @@ main {
   min-height: 100vh;
   max-width: 100%;
   padding-bottom: var(--padding-main);
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -921,9 +921,15 @@ main.list h2 {
 /*                                   Mathjax                                  */
 /* -------------------------------------------------------------------------- */
 
-code.has-jax {
+.has-jax {
   -webkit-font-smoothing: antialiased;
   background: inherit !important;
   border: none !important;
   font-size: 100%;
+  overflow-x: scroll;
+}
+
+/* overflow doesn't seem to work... mhmm */
+.MathJax {
+  overflow-x: scroll !important;
 }
