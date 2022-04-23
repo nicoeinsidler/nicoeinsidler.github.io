@@ -1,7 +1,7 @@
 ---
 title: "ZFS Disk Replacement & Pool Augmentation"
 date: 2022-04-23T13:26:34+02:00
-draft: true
+draft: false
 ---
 
 My home server where I mainly store all my pictures and some [Vienna Sessions]({{< ref "/projects/vienna-sessions.md" >}} "Vienna Sessions") backups uses the [Zettabyte File System](https://en.wikipedia.org/wiki/ZFS) (ZFS). A few weeks back one of my weekly scrubs revealed a failing hard drive in one of the three mirror pools I have created.
