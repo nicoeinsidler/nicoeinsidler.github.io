@@ -1,0 +1,123 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=https://rsms.me/inter/inter.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css><link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon/favicon-16x16.png><link rel=manifest href=/favicon/site.webmanifest><link rel=mask-icon href=/favicon/safari-pinned-tab.svg color=#008eff><meta name=msapplication-TileColor content="#008eff"><meta name=theme-color content="#ffffff"><link rel=stylesheet href=https://ne555.io/css/style.css><title>Nico Einsidler. | ZFS Disk Replacement & Pool Augmentation</title></head><body><header><nav><ul><li><a href=/>NE555</a></li><li><a href=/notes/>Notes</a></li><li><a href=/projects/>Projects</a></li></ul></nav></header><main aria-role=main class=single><h1>ZFS Disk Replacement & Pool Augmentation</h1><p>My home server where I mainly store all my pictures and some <a href=https://ne555.io/projects/vienna-sessions/ title="Vienna Sessions">Vienna Sessions</a> backups uses the <a href=https://en.wikipedia.org/wiki/ZFS>Zettabyte File System</a> (ZFS). A few weeks back one of my weekly scrubs revealed a failing hard drive in one of the three mirror pools I have created.</p><p>As I recently upgraded from my beloved Canon 60D to a Fujifilm X-E3, file sizes will dramatically increase. So why not upgrade the disks while replacing them anyways. The steps to do this for a ZFS mirror pool are failry simple, first you replace the faulty disk, resilver the pool and then repeating this procedure with the second disk, here is a condensed protocol (<strong>TL;DR</strong>):</p><ol><li>Get serial number of faulty disk.</li><li>Physically replace the faulty drive.</li><li>Start the resilvering process by using the command <code>sudo zpool replace -f POOLNAME 18311740819329882151 /dev/disk/by-id/ata-WDC_WD80EFAX-68LHPN0_7HJSWL7F</code>.</li><li>Wait untill resilvering process is finished.</li><li>Repeat disk replacement process for second drive as well.</li><li>Set <code>zpool autoexpand=on</code> and <code>sudo zpool online -e ...</code> to start another resilvering process and make the space on the disk available to the pool.</li></ol><h2 id=disk-replacement>Disk Replacement</h2><p>Apparently my pool named &ldquo;tresor1&rdquo; is degraded and needs a disk replacement:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ zpool status tresor1
+</span></span><span class=line><span class=cl>  pool: tresor1
+</span></span><span class=line><span class=cl> state: DEGRADED
+</span></span><span class=line><span class=cl>status: One or more devices are faulted in response to persistent errors.
+</span></span><span class=line><span class=cl>        Sufficient replicas exist <span class=k>for</span> the pool to <span class=k>continue</span> functioning in a
+</span></span><span class=line><span class=cl>        degraded state.
+</span></span><span class=line><span class=cl>action: Replace the faulted device, or use <span class=s1>&#39;zpool clear&#39;</span> to mark the device
+</span></span><span class=line><span class=cl>        repaired.
+</span></span><span class=line><span class=cl>  scan: scrub repaired 0B in 07:20:05 with <span class=m>0</span> errors on Mon Apr <span class=m>18</span> 07:20:39 <span class=m>2022</span>
+</span></span><span class=line><span class=cl>config:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        NAME                                          STATE     READ WRITE CKSUM
+</span></span><span class=line><span class=cl>        tresor1                                       DEGRADED     <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>          mirror-0                                    DEGRADED     <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>            ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104  FAULTED     <span class=m>13</span>     <span class=m>0</span>     <span class=m>5</span>  too many errors
+</span></span><span class=line><span class=cl>            ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N2558226  ONLINE       <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span></code></pre></div><p>The disk in question is named <code>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104</code>. Looking at the list of block devices present, we see that its name is <code>sdf</code> and its serial number is <strong><code>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104</code></strong>.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ lsblk -I <span class=m>8</span> -d -o NAME,SIZE,SERIAL
+</span></span><span class=line><span class=cl>NAME  SIZE SERIAL
+</span></span><span class=line><span class=cl>sda   3,6T WD-WCC7K6AKJKS1
+</span></span><span class=line><span class=cl>sdb   3,6T WD-WCC7K1ZKZTPU
+</span></span><span class=line><span class=cl>sdc   5,5T ZR10EEM3
+</span></span><span class=line><span class=cl>sdd   5,5T ZR10EEJR
+</span></span><span class=line><span class=cl>sde   2,7T WD-WMC4N2558226
+</span></span><span class=line><span class=cl>sdf   2,7T WD-WMC4N1768104
+</span></span></code></pre></div><p>Capturing all the devices present right now in order to be able to diff them later in the process:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ ls -1 /dev/disk/by-id/ <span class=p>|</span> grep ata
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEJR
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEJR-part1
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEJR-part9
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEM3
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEM3-part1
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEM3-part9
+</span></span><span class=line><span class=cl>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104
+</span></span><span class=line><span class=cl>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104-part1
+</span></span><span class=line><span class=cl>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104-part9
+</span></span><span class=line><span class=cl>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N2558226
+</span></span><span class=line><span class=cl>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N2558226-part1
+</span></span><span class=line><span class=cl>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N2558226-part9
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K1ZKZTPU
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K1ZKZTPU-part1
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K1ZKZTPU-part9
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K6AKJKS1
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K6AKJKS1-part1
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K6AKJKS1-part9
+</span></span></code></pre></div><p>Autoexpand is off right now for every pool, which is the default behaviour. We will need to set this on later in the process.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ zpool get autoexpand
+</span></span><span class=line><span class=cl>NAME     PROPERTY    VALUE   SOURCE
+</span></span><span class=line><span class=cl>tresor1  autoexpand  off     default
+</span></span><span class=line><span class=cl>tresor2  autoexpand  off     default
+</span></span><span class=line><span class=cl>vspoolb  autoexpand  off     default
+</span></span></code></pre></div><p>After physically replacing the old disk with the new one, you will be presented with something like this:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ zpool status tresor1
+</span></span><span class=line><span class=cl>  pool: tresor1
+</span></span><span class=line><span class=cl> state: DEGRADED
+</span></span><span class=line><span class=cl>status: One or more devices could not be used because the label is missing or
+</span></span><span class=line><span class=cl>        invalid.  Sufficient replicas exist <span class=k>for</span> the pool to <span class=k>continue</span>
+</span></span><span class=line><span class=cl>        functioning in a degraded state.
+</span></span><span class=line><span class=cl>action: Replace the device using <span class=s1>&#39;zpool replace&#39;</span>.
+</span></span><span class=line><span class=cl>   see: https://openzfs.github.io/openzfs-docs/msg/ZFS-8000-4J
+</span></span><span class=line><span class=cl>  scan: scrub repaired 0B in 07:20:05 with <span class=m>0</span> errors on Mon Apr <span class=m>18</span> 07:20:39 <span class=m>2022</span>
+</span></span><span class=line><span class=cl>config:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        NAME                                          STATE     READ WRITE CKSUM
+</span></span><span class=line><span class=cl>        tresor1                                       DEGRADED     <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>          mirror-0                                    DEGRADED     <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>            <span class=m>6544112441320430488</span>                       UNAVAIL      <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>  was /dev/disk/by-id/ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104-part1
+</span></span><span class=line><span class=cl>            ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N2558226  ONLINE       <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>errors: No known data errors
+</span></span></code></pre></div><p>Now you may use <code>lsblk</code> and <code>grep</code> to list all devices again, write this to a text file and compare the two using <code>diff</code>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ ls -1 /dev/disk/by-id/ <span class=p>|</span> grep ata
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEJR
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEJR-part1
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEJR-part9
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEM3
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEM3-part1
+</span></span><span class=line><span class=cl>ata-ST6000VN001-2BB186_ZR10EEM3-part9
+</span></span><span class=line><span class=cl>ata-ST6000VX001-2BD186_ZR12E9YV
+</span></span><span class=line><span class=cl>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N2558226
+</span></span><span class=line><span class=cl>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N2558226-part1
+</span></span><span class=line><span class=cl>ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N2558226-part9
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K1ZKZTPU
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K1ZKZTPU-part1
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K1ZKZTPU-part9
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K6AKJKS1
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K6AKJKS1-part1
+</span></span><span class=line><span class=cl>ata-WDC_WD40EFRX-68N32N0_WD-WCC7K6AKJKS1-part9
+</span></span><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ diff hdd-replace-before.txt hdd-replace-after.txt
+</span></span><span class=line><span class=cl>7,9c7
+</span></span><span class=line><span class=cl>&lt; ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104
+</span></span><span class=line><span class=cl>&lt; ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104-part1
+</span></span><span class=line><span class=cl>&lt; ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104-part9
+</span></span><span class=line><span class=cl>---
+</span></span><span class=line><span class=cl>&gt; ata-ST6000VX001-2BD186_ZR12E9YV
+</span></span></code></pre></div><p>=> So the new one must be: <code>ata-ST6000VX001-2BD186_ZR12E9YV</code>. We can now use this info to start the resilvering process:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ sudo zpool replace -f tresor1 <span class=m>6544112441320430488</span> /dev/disk/by-id/ata-ST6000VX001-2BD186_ZR12E9YV
+</span></span><span class=line><span class=cl><span class=o>[</span>sudo<span class=o>]</span> Passwort für nico:
+</span></span><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ zpool status tresor1
+</span></span><span class=line><span class=cl>  pool: tresor1
+</span></span><span class=line><span class=cl> state: DEGRADED
+</span></span><span class=line><span class=cl>status: One or more devices is currently being resilvered.  The pool will
+</span></span><span class=line><span class=cl>        <span class=k>continue</span> to <span class=k>function</span>, possibly in a degraded state.
+</span></span><span class=line><span class=cl>action: Wait <span class=k>for</span> the resilver to complete.
+</span></span><span class=line><span class=cl>  scan: resilver in progress since Tue Apr <span class=m>19</span> 00:58:45 <span class=m>2022</span>
+</span></span><span class=line><span class=cl>        2.67G scanned at 249M/s, 324K issued at 29.5K/s, 2.51T total
+</span></span><span class=line><span class=cl>        0B resilvered, 0.00% <span class=k>done</span>, no estimated completion <span class=nb>time</span>
+</span></span><span class=line><span class=cl>config:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        NAME                                          STATE     READ WRITE CKSUM
+</span></span><span class=line><span class=cl>        tresor1                                       DEGRADED     <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>          mirror-0                                    DEGRADED     <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>            replacing-0                               DEGRADED     <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>              <span class=m>6544112441320430488</span>                     UNAVAIL      <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>  was /dev/disk/by-id/ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N1768104-part1
+</span></span><span class=line><span class=cl>              ata-ST6000VX001-2BD186_ZR12E9YV         ONLINE       <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>            ata-WDC_WD30EFRX-68EUZN0_WD-WMC4N2558226  ONLINE       <span class=m>0</span>     <span class=m>0</span>     <span class=m>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>errors: No known data errors
+</span></span></code></pre></div><p>After this process is completed, you should have a fully functioning pool again. In my case the whole process took about 8 hours.</p><h2 id=disk-expansion>Disk Expansion</h2><p>So now that we replaced the faulty disk with a larger one, we want to take advantage of the extra space left on it. As I am using a mirror pool, the second old disk has to be replaced with a larger one as well. After this has been done, we can set the autoexpand option to true and trigger a resilvering process to make use of the extra disk space.</p><p>After setting the auto expansion property via running <code>sudo zpool set autoexpand=on tresor1</code>, we see that there is space to expand to (<code>EXPANDSZ</code>):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ zpool list
+</span></span><span class=line><span class=cl>NAME      SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+</span></span><span class=line><span class=cl>tresor1  2.72T  2.51T   212G        -     2.72T     0%    92%  1.00x    ONLINE  -
+</span></span><span class=line><span class=cl>tresor2  3.62T  3.12T   521G        -         -     0%    85%  1.00x    ONLINE  -
+</span></span><span class=line><span class=cl>vspoolb  5.45T  2.11T  3.35T        -         -     0%    38%  1.00x    ONLINE  -
+</span></span></code></pre></div><p>In order to make use of the free (real estate) space, we can use <code>sudo zpool online -e tresor1 ata-ST6000VX001-2BD186_ZR12E9YV</code> and <code>sudo zpool online -e tresor1 ata-ST6000VX001-2BD186_ZR10ETZX</code> to finally trigger the expansion. After having done that we should now see more disk space available to us in the pool:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nico@vsserver ~<span class=o>]</span>$ zpool list
+</span></span><span class=line><span class=cl>NAME      SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP    HEALTH  ALTROOT
+</span></span><span class=line><span class=cl>tresor1  5.45T  2.51T  2.94T        -         -     0%    46%  1.00x    ONLINE  -
+</span></span><span class=line><span class=cl>tresor2  3.62T  3.12T   521G        -         -     0%    85%  1.00x    ONLINE  -
+</span></span><span class=line><span class=cl>vspoolb  5.45T  2.11T  3.35T        -         -     0%    38%  1.00x    ONLINE  -
+</span></span></code></pre></div><h2 id=usefull-commands>Usefull Commands</h2><ul><li><code>lsblk -I 8 -d -o NAME,SIZE,SERIAL</code></li><li><code>zpool status</code></li><li><code>ls -1 /dev/disk/by-id/ | grep ata</code></li><li><code>sudo zpool replace -f storage 18311740819329882151 /dev/disk/by-id/ata-WDC_WD80EFAX-68LHPN0_7HJSWL7F</code> (command must be customized of course)</li><li><code>zpool set autoexpand=on POOLNAME</code></li></ul><h2 id=usefull-articles>Usefull Articles</h2><p>Of course I am not the first one to do this and write about it, so here is a list of articles I found very helpful:</p><ul><li><a href=https://jordanelver.co.uk/blog/2018/11/26/how-to-replace-a-failed-disk-in-a-zfs-mirror/>ZFS Mirror Disk Replacement Process</a> 2018</li><li><a href=https://forums.freebsd.org/threads/replacing-devices-with-larger-capacity-in-mirrored-pool.55907/>Replacing Disk with larger Disk</a> 2016</li><li><a href=https://www.dan.me.uk/blog/2012/11/14/increase-capacity-of-freebsd-zfs-array-by-replacing-disks/>Increasing Capacity of ZFS Mirror Pool by adding larger Disks</a> (2012)</li></ul></main><footer><ul id=social><li><a href=https://twitter.com/ne555>Twitter</a></li><li><a href=https://www.linkedin.com/in/nicoeinsidler/>LinkedIn</a></li><li><a href=https://github.com/nicoeinsidler>GitHub</a></li><li><a href=https://www.instagram.com/nicoeinsidler/>Instagram</a></li><li><a href=https://youtube.com/viennasessions>YouTube</a></li></ul><ul id=boring-links><li><a href=https://ne555.io/>Home</a></li><li><a href=https://ne555.io/contact>Contact</a></li><li><a href=https://ne555.io/imprint>Imprint</a></li></ul></footer></body></html>

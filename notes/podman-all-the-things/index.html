@@ -1,102 +1,25 @@
-<!doctype html><html><head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<link rel=stylesheet href=https://rsms.me/inter/inter.css>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css>
-<link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon/favicon-16x16.png>
-<link rel=manifest href=/favicon/site.webmanifest>
-<link rel=mask-icon href=/favicon/safari-pinned-tab.svg color=#008eff>
-<meta name=msapplication-TileColor content="#008eff">
-<meta name=theme-color content="#ffffff">
-<link rel=stylesheet href=https://ne555.io/css/style.css>
-<title>Nico Einsidler. | Podman All the Things</title>
-</head><body><header>
-<nav>
-<ul>
-<li><a href=/>NE555</a></li>
-<li><a href=/notes/>Notes</a></li>
-<li><a href=/projects/>Projects</a></li>
-</ul>
-</nav>
-</header>
-<main aria-role=main class=single>
-<h1>Podman All the Things</h1>
-<p>A few days ago while browsing <a href=https://lobste.rs/>lobste.rs</a> I stumbled upon the article <a href=https://nystudio107.com/blog/dock-life-using-docker-for-all-the-things>&ldquo;Dock Life: Using Docker for All The Things!"</a> written by Andrew Welch. It had then gotten onto the upper half of the first page on lobste.rs and a few days ago even Chris Coyer from <a href=https://css-tricks.com/dock-life-using-docker-for-all-the-things/>CSS-Tricks.com wrote about it</a>.</p>
-<p>Just coming from NixOS and Fedora Silverblue, I was immediately hooked. This is actually an amazing idea!</p>
-<h2 id=basic-idea>Basic Idea</h2>
-<p>The basic idea behind Andrew Welch&rsquo;s article is simple: If you ever need to run a certain program, grab a container that already includes the desired program and remap the program name on your system to a <code>docker run</code> command.</p>
-<p>So for example you want to use <code>ffmpeg</code>. You could then create an alias to automatically run it inside a container like so:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>alias</span> <span class=nv>ffmpeg</span><span class=o>=</span><span class=s1>&#39;docker run --rm -it -v `pwd`:/app jrottenberg/ffmpeg &#39;</span>
-</code></pre></div><p>Of course I immediately tried aliasing some of the tools I work with on a daily basis as well:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>alias</span> <span class=nv>python</span><span class=o>=</span><span class=s1>&#39;docker run --rm -it -v `pwd`:/app python3 &#39;</span>
-</code></pre></div><p>But there are two problems:</p>
-<ul>
-<li>containers are not persistent, so I cannot install anything that will last</li>
-<li>the trick uses docker and I am more of a podman fan</li>
-</ul>
-<h2 id=using-podman>Using Podman</h2>
-<p>So the journey continued and I started to create podman alternatives. This is fairly simple – as already described on its homepage – because podman can be used as a drop-in replacement for docker, e.g. <code>alias docker=podman</code>. Here&rsquo;s an example with sqlite3:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ podman run --rm -it -v <span class=s1>&#39;pwd&#39;</span>:/app nouchka/sqlite3
-SQLite version 3.34.1 2021-01-20 14:10:07
-Enter <span class=s2>&#34;.help&#34;</span> <span class=k>for</span> usage hints.
-Connected to a transient in-memory database.
-Use <span class=s2>&#34;.open FILENAME&#34;</span> to reopen on a persistent database.
-sqlite&gt;
-</code></pre></div><p>There are many advantages of podman over docker. But one that will be immediately visible when trying to pull an image for the first time is that it can do this from various sources. If you first try to run <code>podman run --rm -it -v 'pwd':/app nouchka/sqlite3</code> it will ask you where to get the image from. This will look like the following:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ podman run --rm -it -v <span class=s1>&#39;pwd&#39;</span>:/app nouchka/sqlite3
-? Please <span class=k>select</span> an image:
-  ▸ registry.fedoraproject.org/nouchka/sqlite3:latest
-    registry.access.redhat.com/nouchka/sqlite3:latest
-    docker.io/nouchka/sqlite3:latest
-    quay.io/nouchka/sqlite3:latest
-</code></pre></div><h2 id=installing-shit>Installing Shit</h2>
-<p>Moving on to the second before mentioned problem: Containers are created using an image and can not be altered. Once you kill the container, it&rsquo;s gone. After all this is what makes containers so convenient in the first place.</p>
-<p>Therefore you always have to find exactly the right image to create a container from. Say you are working on a Jupyter Notebook within Jupyter Lab on a Qiskit project requiring several other Python packages to be installed. You won&rsquo;t probably find the exact matching image for that.</p>
-<p>You now have basically two options:</p>
-<ul>
-<li>cram all installation and execution instructions into one line (very ugly and not handy)</li>
-<li>create your own image (using <code>Dockerfile</code>)</li>
-</ul>
-<p>First option is just insane. The second option can be a good option for programs that are not yet packed into a container and made available through a public container registry. This is a great idea for containerizing – let&rsquo;s say – <a href=https://github.com/sharkdp/bat><code>bat</code></a>, but if you find yourself installing dependencies, well, then you don&rsquo;t need an alias and just store the <code>Dockerfile</code> in the project itself.</p>
-<h2 id=toolbox>Toolbox</h2>
-<p>Once I was creating all kinds of different aliases to <code>podman run</code> commands, I was already borderline close to <code>toolbox</code>. <a href=https://containertoolbx.org/>Toolbox</a> let&rsquo;s you create different containerized environments for all kinds of projects.</p>
-<p>Let&rsquo;s say you want to write a program and run it on a Quantum Computer with Qiskit. You may create a toolbox by running <code>toolbox create qiskit</code>. The environment can now be entered via <code>toolboox enter qiskit</code>. This will take you in a container spun up in the background with podman.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ toolbox create qiskit
-Creating container qiskit: <span class=p>|</span> Created container: qiskit
-Enter with: toolbox enter qiskit
-
-<span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ toolbox enter qiskit
-
-⬢<span class=o>[</span>nicoeinsidler@toolbox<span class=o>]</span>$
-</code></pre></div><p>Now you can install programs and set up your work environment without impacting the main underlying system. On Fedora the container is created from the fedora-toolbox image which has <code>dnf</code> installed.</p>
-<p>Let us install Jupyter Lab by typing <code>python -m pip install jupyterlab</code>. (Pip is not in the PATH, therefore I am using it in this way, but for this matter <code>pip = python -m pip</code>.)</p>
-<p>Once the installation is done, we can use Jupyter Lab as if it where installed on our base operating system. And when you&rsquo;re finished working on your project, just type <code>exit</code> to exit the toolbox.</p>
-<p>With <code>toolbox list</code> all toolbox containers can be viewed. Be aware, that even if you exit out of a toolbox (container) it won&rsquo;t stop running. You can pause the toolbox with <code>toolbox pause</code>. For more information, check out the man pages.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ toolbox list
-IMAGE ID      IMAGE NAME                                    CREATED
-ab8bc106d4a7  registry.fedoraproject.org/fedora-toolbox:35  <span class=m>4</span> weeks ago
-</code></pre></div><h2 id=conclusio>Conclusio</h2>
-<p>The idea of using containerized programs, or even containerized sets of programs, or even containerized sets of programs with a custom configuration is an interesting idea. But as always, the right tools should be used for the right problems. Using Docker and aliases for single programs like <code>ffmpeg</code> or <code>gcc</code> is a great idea, but once you begin creating your own images, please consider those alternatives:</p>
-<ul>
-<li><code>nix-env</code>: tool to create environments in which programs can be installed, so the same program in different versions can co-exist</li>
-<li><code>toolbox</code>: create persistent containers for installing specific tools (editors, SDKs, compilers, &mldr;)</li>
-<li><code>Dockerfile</code>: when you find yourself defining your own image, because no base Docker image fits, consider going the &ldquo;traditional&rdquo; approach: each project with its own Dockerfile</li>
-</ul>
-</main>
-<footer>
-<ul id=social>
-<li><a href=https://twitter.com/ne555>Twitter</a></li>
-<li><a href=https://www.linkedin.com/in/nicoeinsidler/>LinkedIn</a></li>
-<li><a href=https://github.com/nicoeinsidler>GitHub</a></li>
-<li><a href=https://www.instagram.com/nicoeinsidler/>Instagram</a></li>
-<li><a href=https://youtube.com/viennasessions>YouTube</a></li>
-</ul>
-<ul id=boring-links>
-<li><a href=https://ne555.io/>Home</a></li>
-<li><a href=https://ne555.io/contact>Contact</a></li>
-<li><a href=https://ne555.io/imprint>Imprint</a></li>
-</ul>
-</footer></body>
-</html>
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href=https://rsms.me/inter/inter.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/jetbrains-mono@1.0.6/css/jetbrains-mono.min.css><link rel=apple-touch-icon sizes=180x180 href=/favicon/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon/favicon-16x16.png><link rel=manifest href=/favicon/site.webmanifest><link rel=mask-icon href=/favicon/safari-pinned-tab.svg color=#008eff><meta name=msapplication-TileColor content="#008eff"><meta name=theme-color content="#ffffff"><link rel=stylesheet href=https://ne555.io/css/style.css><title>Nico Einsidler. | Podman All the Things</title></head><body><header><nav><ul><li><a href=/>NE555</a></li><li><a href=/notes/>Notes</a></li><li><a href=/projects/>Projects</a></li></ul></nav></header><main aria-role=main class=single><h1>Podman All the Things</h1><p>A few days ago while browsing <a href=https://lobste.rs/>lobste.rs</a> I stumbled upon the article <a href=https://nystudio107.com/blog/dock-life-using-docker-for-all-the-things>&ldquo;Dock Life: Using Docker for All The Things!&rdquo;</a> written by Andrew Welch. It had then gotten onto the upper half of the first page on lobste.rs and a few days ago even Chris Coyer from <a href=https://css-tricks.com/dock-life-using-docker-for-all-the-things/>CSS-Tricks.com wrote about it</a>.</p><p>Just coming from NixOS and Fedora Silverblue, I was immediately hooked. This is actually an amazing idea!</p><h2 id=basic-idea>Basic Idea</h2><p>The basic idea behind Andrew Welch&rsquo;s article is simple: If you ever need to run a certain program, grab a container that already includes the desired program and remap the program name on your system to a <code>docker run</code> command.</p><p>So for example you want to use <code>ffmpeg</code>. You could then create an alias to automatically run it inside a container like so:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>ffmpeg</span><span class=o>=</span><span class=s1>&#39;docker run --rm -it -v `pwd`:/app jrottenberg/ffmpeg &#39;</span>
+</span></span></code></pre></div><p>Of course I immediately tried aliasing some of the tools I work with on a daily basis as well:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>alias</span> <span class=nv>python</span><span class=o>=</span><span class=s1>&#39;docker run --rm -it -v `pwd`:/app python3 &#39;</span>
+</span></span></code></pre></div><p>But there are two problems:</p><ul><li>containers are not persistent, so I cannot install anything that will last</li><li>the trick uses docker and I am more of a podman fan</li></ul><h2 id=using-podman>Using Podman</h2><p>So the journey continued and I started to create podman alternatives. This is fairly simple – as already described on its homepage – because podman can be used as a drop-in replacement for docker, e.g. <code>alias docker=podman</code>. Here&rsquo;s an example with sqlite3:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ podman run --rm -it -v <span class=s1>&#39;pwd&#39;</span>:/app nouchka/sqlite3
+</span></span><span class=line><span class=cl>SQLite version 3.34.1 2021-01-20 14:10:07
+</span></span><span class=line><span class=cl>Enter <span class=s2>&#34;.help&#34;</span> <span class=k>for</span> usage hints.
+</span></span><span class=line><span class=cl>Connected to a transient in-memory database.
+</span></span><span class=line><span class=cl>Use <span class=s2>&#34;.open FILENAME&#34;</span> to reopen on a persistent database.
+</span></span><span class=line><span class=cl>sqlite&gt;
+</span></span></code></pre></div><p>There are many advantages of podman over docker. But one that will be immediately visible when trying to pull an image for the first time is that it can do this from various sources. If you first try to run <code>podman run --rm -it -v 'pwd':/app nouchka/sqlite3</code> it will ask you where to get the image from. This will look like the following:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ podman run --rm -it -v <span class=s1>&#39;pwd&#39;</span>:/app nouchka/sqlite3
+</span></span><span class=line><span class=cl>? Please <span class=k>select</span> an image:
+</span></span><span class=line><span class=cl>  ▸ registry.fedoraproject.org/nouchka/sqlite3:latest
+</span></span><span class=line><span class=cl>    registry.access.redhat.com/nouchka/sqlite3:latest
+</span></span><span class=line><span class=cl>    docker.io/nouchka/sqlite3:latest
+</span></span><span class=line><span class=cl>    quay.io/nouchka/sqlite3:latest
+</span></span></code></pre></div><h2 id=installing-shit>Installing Shit</h2><p>Moving on to the second before mentioned problem: Containers are created using an image and can not be altered. Once you kill the container, it&rsquo;s gone. After all this is what makes containers so convenient in the first place.</p><p>Therefore you always have to find exactly the right image to create a container from. Say you are working on a Jupyter Notebook within Jupyter Lab on a Qiskit project requiring several other Python packages to be installed. You won&rsquo;t probably find the exact matching image for that.</p><p>You now have basically two options:</p><ul><li>cram all installation and execution instructions into one line (very ugly and not handy)</li><li>create your own image (using <code>Dockerfile</code>)</li></ul><p>First option is just insane. The second option can be a good option for programs that are not yet packed into a container and made available through a public container registry. This is a great idea for containerizing – let&rsquo;s say – <a href=https://github.com/sharkdp/bat><code>bat</code></a>, but if you find yourself installing dependencies, well, then you don&rsquo;t need an alias and just store the <code>Dockerfile</code> in the project itself.</p><h2 id=toolbox>Toolbox</h2><p>Once I was creating all kinds of different aliases to <code>podman run</code> commands, I was already borderline close to <code>toolbox</code>. <a href=https://containertoolbx.org/>Toolbox</a> let&rsquo;s you create different containerized environments for all kinds of projects.</p><p>Let&rsquo;s say you want to write a program and run it on a Quantum Computer with Qiskit. You may create a toolbox by running <code>toolbox create qiskit</code>. The environment can now be entered via <code>toolboox enter qiskit</code>. This will take you in a container spun up in the background with podman.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ toolbox create qiskit
+</span></span><span class=line><span class=cl>Creating container qiskit: <span class=p>|</span> Created container: qiskit
+</span></span><span class=line><span class=cl>Enter with: toolbox enter qiskit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ toolbox enter qiskit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>⬢<span class=o>[</span>nicoeinsidler@toolbox<span class=o>]</span>$
+</span></span></code></pre></div><p>Now you can install programs and set up your work environment without impacting the main underlying system. On Fedora the container is created from the fedora-toolbox image which has <code>dnf</code> installed.</p><p>Let us install Jupyter Lab by typing <code>python -m pip install jupyterlab</code>. (Pip is not in the PATH, therefore I am using it in this way, but for this matter <code>pip = python -m pip</code>.)</p><p>Once the installation is done, we can use Jupyter Lab as if it where installed on our base operating system. And when you&rsquo;re finished working on your project, just type <code>exit</code> to exit the toolbox.</p><p>With <code>toolbox list</code> all toolbox containers can be viewed. Be aware, that even if you exit out of a toolbox (container) it won&rsquo;t stop running. You can pause the toolbox with <code>toolbox pause</code>. For more information, check out the man pages.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>nicoeinsidler@fedora<span class=o>]</span>$ toolbox list
+</span></span><span class=line><span class=cl>IMAGE ID      IMAGE NAME                                    CREATED
+</span></span><span class=line><span class=cl>ab8bc106d4a7  registry.fedoraproject.org/fedora-toolbox:35  <span class=m>4</span> weeks ago
+</span></span></code></pre></div><h2 id=conclusio>Conclusio</h2><p>The idea of using containerized programs, or even containerized sets of programs, or even containerized sets of programs with a custom configuration is an interesting idea. But as always, the right tools should be used for the right problems. Using Docker and aliases for single programs like <code>ffmpeg</code> or <code>gcc</code> is a great idea, but once you begin creating your own images, please consider those alternatives:</p><ul><li><code>nix-env</code>: tool to create environments in which programs can be installed, so the same program in different versions can co-exist</li><li><code>toolbox</code>: create persistent containers for installing specific tools (editors, SDKs, compilers, &mldr;)</li><li><code>Dockerfile</code>: when you find yourself defining your own image, because no base Docker image fits, consider going the &ldquo;traditional&rdquo; approach: each project with its own Dockerfile</li></ul></main><footer><ul id=social><li><a href=https://twitter.com/ne555>Twitter</a></li><li><a href=https://www.linkedin.com/in/nicoeinsidler/>LinkedIn</a></li><li><a href=https://github.com/nicoeinsidler>GitHub</a></li><li><a href=https://www.instagram.com/nicoeinsidler/>Instagram</a></li><li><a href=https://youtube.com/viennasessions>YouTube</a></li></ul><ul id=boring-links><li><a href=https://ne555.io/>Home</a></li><li><a href=https://ne555.io/contact>Contact</a></li><li><a href=https://ne555.io/imprint>Imprint</a></li></ul></footer></body></html>
