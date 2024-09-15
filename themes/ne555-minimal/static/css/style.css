@@ -133,7 +133,7 @@
 
 html {
   font-family: "Inter var", sans-serif;
-  font-feature-settings: "calt", "frac", "case", "ss02", "ss03", "zero";
+  font-feature-settings: "calt", "case", "ss02", "ss03", "zero";
   font-size: var(--txt-font-size);
   font-weight: var(--txt-font-weight);
   line-height: var(--txt-line-height);
