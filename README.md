@@ -2,6 +2,8 @@
 
 Repo for Nico Einsidler's personal homepage.
 
+Run `hugo` with nix-shell (temporarily adding the inary to `PATH`): `nix-shell -p hugo`.
+
 ## Contents
 
 - short intro (who am I?)
